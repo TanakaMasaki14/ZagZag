@@ -1,4 +1,5 @@
 #include "DxLib.h"
+#include "GameScene.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "4047_ZagZag";
@@ -40,7 +41,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 	// ゲームループで使う変数の宣言
-
+	GameScene* gamescene = new GameScene();
 
 	// 最新のキーボード情報用
 	char keys[256] = { 0 };
@@ -59,10 +60,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
-
+		gamescene->Update();
 
 		// 描画処理
-
+		gamescene->Draw();
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
 		ScreenFlip();

@@ -5,8 +5,8 @@
 
 Enemy1::Enemy1(float x, float y)
 {
-	x = this->x;
-	x = this->y;
+	this->x = x;
+	this->y = y;
 
 	int* sizeX = 0;
 	int* sizeY = 0;
@@ -27,6 +27,8 @@ Enemy1::Enemy1(float x, float y)
 		// エラーハンドリングコードをここに追加
 		std::cerr << "Error: sizeY is a NULL pointer." << std::endl;
 	}
+	this->sizeX = this->sizeX / 2;
+	this->sizeY = this->sizeY / 2;
 }
 
 void Enemy1::Update()
