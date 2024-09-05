@@ -45,9 +45,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//シーン管理
 	int scene = 0;
 
-	// シーンの進行フラグ
-	bool spaceKeyPressed = false; // SPACEキーが一度押されたかどうかを判定するフラグ
-
 	// 最新のキーボード情報用
 	char keys[256] = {0};
 
