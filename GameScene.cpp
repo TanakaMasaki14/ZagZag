@@ -3,6 +3,7 @@
 
 GameScene::GameScene() {
     scene = 0;
+    player = new Player(300, 300);
 }
 
 // シーンの更新処理
@@ -42,6 +43,7 @@ void GameScene::Draw() {
 
         // ステージ1
     case 1:
+        player->Draw();
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Stage1");
         DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH C");
         break;
