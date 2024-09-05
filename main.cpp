@@ -4,10 +4,10 @@
 const char TITLE[] = "4047_ZagZag";
 
 // ウィンドウ横幅
-const int WIN_WIDTH = 600;
+const int WIN_WIDTH = 800;
 
 // ウィンドウ縦幅
-const int WIN_HEIGHT = 400;
+const int WIN_HEIGHT = 980;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
                    _In_ int nCmdShow) {
@@ -42,6 +42,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// ゲームループで使う変数の宣言
 
 
+	//シーン管理
+	int scene = 0;
+
+	// シーンの進行フラグ
+	bool spaceKeyPressed = false; // SPACEキーが一度押されたかどうかを判定するフラグ
+
 	// 最新のキーボード情報用
 	char keys[256] = {0};
 
@@ -59,7 +65,38 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
+		switch (scene)
+		{
+		// タイトル
+		case 0:
+			DrawFormatString(100, 100, GetColor(255, 255, 255), "Title");
+			DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH SPACE");
 
+			if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
+				scene = 1;
+			}
+			break;
+
+		// ステージ1
+		case 1:
+			DrawFormatString(100, 100, GetColor(255, 255, 255), "Stage1");
+			DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH C");
+
+			if (keys[KEY_INPUT_C] == 1 && oldkeys[KEY_INPUT_C] == 0) {
+				scene = 2;
+			}
+			break;
+
+		// クリア
+		case 2:
+			DrawFormatString(100, 100, GetColor(255, 255, 255), "Clear");
+			DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH T");
+
+			if (keys[KEY_INPUT_T] == 1 && oldkeys[KEY_INPUT_T] == 0) {
+				scene = 0;
+			}
+			break;
+		}
 
 		// 描画処理
 
