@@ -10,6 +10,11 @@ public:
 	void Draw();
 
 private:
+	float x;
+	float y;
+
+	float sizeX;
+	float sizeY;
 
 };
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <DxLib.h>
 
 class Enemy
 {
@@ -9,7 +10,9 @@ public:
 
 	virtual void Draw();
 
-private:
+protected:
+	float x;
+	float y;
 
 };
 
