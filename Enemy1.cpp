@@ -10,7 +10,7 @@ Enemy1::Enemy1(float x, float y)
 
 	int* sizeX = new int(0);
 	int* sizeY = new int(0);
-	texture = LoadGraph("");
+	texture = LoadGraph("Resources/test.png");
 	GetGraphSize(texture, sizeX, sizeY);
 
 	if (sizeX != nullptr) {
