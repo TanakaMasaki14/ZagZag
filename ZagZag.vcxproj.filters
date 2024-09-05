@@ -18,36 +18,36 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Users\tanak\Downloads\ZagZag-kira\ZagZag-kira\Enemy.cpp">
+    <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Users\tanak\Downloads\ZagZag-kira\ZagZag-kira\GameScene.cpp">
+    <ClCompile Include="GameScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Users\tanak\Downloads\ZagZag-kira\ZagZag-kira\Player.cpp">
+    <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Users\tanak\Downloads\ZagZag-kira\ZagZag-kira\Terrain.cpp">
+    <ClCompile Include="Terrain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Users\tanak\Downloads\ZagZag-kira\ZagZag-kira\Treasure.cpp">
+    <ClCompile Include="Treasure.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Users\tanak\Downloads\ZagZag-kira\ZagZag-kira\Enemy.h">
+    <ClInclude Include="Enemy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Users\tanak\Downloads\ZagZag-kira\ZagZag-kira\GameScene.h">
+    <ClInclude Include="GameScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Users\tanak\Downloads\ZagZag-kira\ZagZag-kira\Terrain.h">
+    <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Users\tanak\Downloads\ZagZag-kira\ZagZag-kira\Treasure.h">
+    <ClInclude Include="Terrain.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Users\tanak\Downloads\ZagZag-kira\ZagZag-kira\Player.h">
+    <ClInclude Include="Treasure.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
