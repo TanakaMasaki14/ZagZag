@@ -28,7 +28,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetWindowSizeExtendRate(1.0);
 
 	// 画面の背景色を設定する
-	SetBackgroundColor(0x00, 0x00, 0x00);
+	SetBackgroundColor(0xA9, 0xCE, 0xEC);
 
 	// DXlibの初期化
 	if (DxLib_Init() == -1) { return -1; }
@@ -37,6 +37,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	// 画像などのリソースデータの変数宣言と読み込み
+	int TitleName = LoadGraph("Resouse/TitleName.png");
 
 
 	// ゲームループで使う変数の宣言
@@ -99,6 +100,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		}
 
 		// 描画処理
+		DrawGraph(270, 200, TitleName, TRUE);
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
