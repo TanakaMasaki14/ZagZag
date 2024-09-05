@@ -13,9 +13,9 @@ public:
 private:
 	int texture;
 
-	int hp;
+	int hp = 0;
 
-	float sizeX;
-	float sizeY;
+	float sizeX = 0;
+	float sizeY = 0;
 };
 
