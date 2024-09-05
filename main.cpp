@@ -1,4 +1,5 @@
 #include "DxLib.h"
+#include <math.h>
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "4047_ZagZag";
@@ -42,6 +43,16 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ゲームループで使う変数の宣言
 
+	// タイトル画像の初期Y座標
+	float imagePosY = 100.0f; // 初期位置
+	// タイトル画像の速度
+	float imageSpeedY = 0.0f; // 初期速度
+	// 重力加速度
+	const float gravity = 0.5f;
+	// 反発係数(1より小さい値にするたびに勢いが弱くなる)
+	const float bounceFactor = 0.7f;
+	// 地面のY座標
+	const int groundY = 200; // ウィンドウの下に地面を設定
 
 	//シーン管理
 	int scene = 0;
@@ -70,6 +81,25 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		{
 		// タイトル
 		case 0:
+
+			// 重力を適用して速度を更新
+			imageSpeedY += gravity;
+			// 画像のY座標を更新
+			imagePosY += imageSpeedY;
+
+			// 地面に衝突した場合
+			if (imagePosY >= groundY)
+			{
+				imagePosY = groundY; // 地面で位置を固定
+				imageSpeedY = -imageSpeedY * bounceFactor; // 反発する速度を軽減
+				
+				// 一定の低速になったら停止(バウンドしない)
+				if (fabs(imageSpeedY) < 1.0f)
+				{
+					imageSpeedY = 0.0f;
+				}
+			}
+
 			DrawFormatString(100, 100, GetColor(255, 255, 255), "Title");
 			DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH SPACE");
 
@@ -100,7 +130,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		}
 
 		// 描画処理
-		DrawGraph(270, 200, TitleName, TRUE);
+		DrawGraph(270, (int)imagePosY - 100, TitleName, TRUE);
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
