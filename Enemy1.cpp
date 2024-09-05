@@ -8,8 +8,8 @@ Enemy1::Enemy1(float x, float y)
 	this->x = x;
 	this->y = y;
 
-	int* sizeX = 0;
-	int* sizeY = 0;
+	int* sizeX = new int(0);
+	int* sizeY = new int(0);
 	texture = LoadGraph("");
 	GetGraphSize(texture, sizeX, sizeY);
 

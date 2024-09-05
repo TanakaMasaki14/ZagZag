@@ -18,5 +18,7 @@ private:
 	float sizeY = 0;
 
 	int texture;
+
+	int check = 0;
 };
 
