@@ -3,41 +3,85 @@
 #include "AnimationManager.h"
 
 // コンストラクタ
-AnimationManager::AnimationManager():posX(270),posY(100),imageSpeedY(0),imageHandle(-1){}
+//AnimationManager::AnimationManager():posX(270),posY(100),imageSpeedY(0),titleNameImage(-1){}
 
-// 画像をロードする関数
-void AnimationManager::loadImage(const char* filePath)
+AnimationManager::AnimationManager(){}
+
+// バウンドの関数
+void AnimationManager::BounceImage(const char* filePath, float startX, float startY, float gravity, float bounceFactor, float groundY)
 {
-	imageHandle = LoadGraph(filePath);
+	ImageDate imageData;
+	imageData.imageHandle = LoadGraph(filePath);
+	imageData.posX = startX;
+	imageData.posY = startY;
+	imageData.imageSpeedY = 0;
+	imageData.gravity = gravity;
+	imageData.bounceFactor = bounceFactor;
+	imageData.groundY = groundY;
+	imageData.animationType = BOUNCE;
+	images.push_back(imageData);
+}
+
+// 左右に揺れる関数
+void AnimationManager::SwayImage(const char* filePath, float startX, float startY, float swayAmplitude, float swaySpeed)
+{
+	ImageDate imageData;
+	imageData.imageHandle = LoadGraph(filePath);
+	imageData.posX = startX;
+	imageData.posY = startY;
+	imageData.imageSpeedX = 0;
+	imageData.swaySpeed = swaySpeed;
+	imageData.swayAngle = 0.0f;
+	imageData.swayAmplitude = swayAmplitude;
+	imageData.animationType = SWAY;
+	images.push_back(imageData);
 }
 
 // アニメーションの更新処理
 void AnimationManager::update()
 {
-	// 重力を適用して速度を更新
-	imageSpeedY += gravity;
-	// 画像のY座標を更新
-	posY += imageSpeedY;
-
-	// 地面に衝突した場合
-	if (posY >= groundY)
+	for (auto& image : images)
 	{
-		posY = groundY; // 地面で位置を固定
-		imageSpeedY = -imageSpeedY * bounceFactor; // 反発する速度を軽減
-
-		// 一定の低速になったら停止(バウンドしない)
-		if (fabs(imageSpeedY) < 1.0f)
+		if (image.animationType == BOUNCE)
 		{
-			imageSpeedY = 0.0f;
+			// 重力を適用して速度を更新
+			image.imageSpeedY += image.gravity;
+			// 画像のY座標を更新
+			image.posY += image.imageSpeedY;
+
+			// 地面に衝突した場合
+			if (image.posY >= image.groundY)
+			{
+				image.posY = image.groundY; // 地面で位置を固定
+				image.imageSpeedY = -image.imageSpeedY * image.bounceFactor; // 反発する速度を軽減
+
+				// 一定の低速になったら停止(バウンドしない)
+				if (fabs(image.imageSpeedY) < 1.0f)
+				{
+					image.imageSpeedY = 0.0f;
+				}
+			}
 		}
+
+		else if(image.animationType == SWAY)
+		{
+			// 左右に揺れるアニメーション
+			image.swayAngle += image.swaySpeed; // 揺れる角度更新
+			image.posX += sin(image.swayAngle) * image.swayAmplitude; // X方向に揺れる
+		}
+		
 	}
+	
 }
 
 //　画像を描画する関数
 void AnimationManager::draw()
 {
-	if (imageHandle != -1)
+	for (const auto& image : images)
 	{
-		DrawGraph(posX, posY, imageHandle, TRUE);
+		if (image.imageHandle != -1)
+		{
+			DrawGraph(static_cast<int>(image.posX), static_cast<int>(image.posY),image.imageHandle, TRUE);
+		}
 	}
 }

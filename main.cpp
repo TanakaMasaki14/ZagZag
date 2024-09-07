@@ -42,7 +42,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	AnimationManager animation;
 
 	// 画像などのリソースデータの変数宣言と読み込み
-	animation.loadImage("Resouse/TitleName.png");
+	animation.BounceImage("Resouse/TitleName.png",270,100,0.5f,0.7f,200);
+	animation.SwayImage("Resouse/Icon.png", 100, 500, 1.0f,0.05f);
 
 	// ゲームループで使う変数の宣言
 
