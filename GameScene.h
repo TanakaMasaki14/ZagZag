@@ -1,20 +1,25 @@
-#pragma once
-#include "Player.h"
-#include "Enemy.h"
-#include "Treasure.h"
-#include "Terrain.h"
-#include <list>
+#include "AnimationManager.h"
 
-class GameScene
-{
+// ゲームシーンを管理するクラス
+class GameScene {
 public:
-	GameScene();
+    // コンストラクタ
+    GameScene();
 
-	void Update();
+    // シーンの更新処理
+    void Update(char* keys, char* oldkeys);
 
-	void Draw();
+    // シーンの描画処理
+    void Draw();
 
 private:
-	Player* player = nullptr;
+    int scene; // 現在のシーン
+    int titleBgm;
+    int stageBgm;
+    int clearBgm;
+    int overBgm;
 
+    AnimationManager animation;
+
+    //int actionBgm;
 };

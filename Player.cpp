@@ -8,9 +8,9 @@ Player::Player(float x, float y)
 	this->x = x;
 	this->y = y;
 
-	int* sizeX = 0;
-	int* sizeY = 0;
-	texture = LoadGraph("Resources/test.png");
+	int* sizeX = new int(0);
+	int* sizeY = new int(0);
+	texture = LoadGraph("Resource/Soil.png");
 	GetGraphSize(texture, sizeX, sizeY);
 
 	if (sizeX != nullptr) {
@@ -40,5 +40,6 @@ void Player::Update()
 
 void Player::Draw()
 {
-	DrawGraph(x - sizeX, y - sizeY, texture, true);
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", sizeY);
+	DrawGraph((int)x - (int)sizeX, (int)y - (int)sizeY, texture, true);
 }

@@ -1,5 +1,5 @@
 #include "DxLib.h"
-#include "AnimationManager.h"
+#include "GameScene.h"
 #include <math.h>
 
 // ウィンドウのタイトルに表示する文字列
@@ -39,11 +39,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	// AnimationManagerクラスのインスタンスを作成
-	AnimationManager animation;
+
 
 	// 画像などのリソースデータの変数宣言と読み込み
-	animation.BounceImage("Resouse/TitleName.png",270,100,0.5f,0.7f,200);
-	animation.SwayImage("Resouse/Icon.png", 100, 500, 1.0f,0.05f);
+	GameScene* gamescene = new GameScene();
 
 	// ゲームループで使う変数の宣言
 
@@ -69,45 +68,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		ClearDrawScreen();
 		//---------  ここからプログラムを記述  ----------//
 
-		// 更新処理
-		switch (scene)
-		{
-		// タイトル
-		case 0:
-
-			animation.update();
-
-			DrawFormatString(100, 100, GetColor(255, 255, 255), "Title");
-			DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH SPACE");
-
-			if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
-				scene = 1;
-			}
-			break;
-
-		// ステージ1
-		case 1:
-			DrawFormatString(100, 100, GetColor(255, 255, 255), "Stage1");
-			DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH C");
-
-			if (keys[KEY_INPUT_C] == 1 && oldkeys[KEY_INPUT_C] == 0) {
-				scene = 2;
-			}
-			break;
-
-		// クリア
-		case 2:
-			DrawFormatString(100, 100, GetColor(255, 255, 255), "Clear");
-			DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH T");
-
-			if (keys[KEY_INPUT_T] == 1 && oldkeys[KEY_INPUT_T] == 0) {
-				scene = 0;
-			}
-			break;
-		}
+		// 更新処
+		gamescene->Update(keys,oldkeys);
 
 		// 描画処理
-		animation.draw();
+		gamescene->Draw();
 
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面

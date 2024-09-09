@@ -3,8 +3,6 @@
 #include "AnimationManager.h"
 
 // コンストラクタ
-//AnimationManager::AnimationManager():posX(270),posY(100),imageSpeedY(0),titleNameImage(-1){}
-
 AnimationManager::AnimationManager(){}
 
 // バウンドの関数
@@ -34,6 +32,17 @@ void AnimationManager::SwayImage(const char* filePath, float startX, float start
 	imageData.swayAngle = 0.0f;
 	imageData.swayAmplitude = swayAmplitude;
 	imageData.animationType = SWAY;
+	images.push_back(imageData);
+}
+
+// アニメーションのない画像の関数
+void AnimationManager::NormalImage(const char* filePath, float startX, float startY)
+{
+	ImageDate imageData;
+	imageData.imageHandle = LoadGraph(filePath);
+	imageData.posX = startX;
+	imageData.posY = startY;
+	imageData.animationType = NONE;
 	images.push_back(imageData);
 }
 

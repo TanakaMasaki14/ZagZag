@@ -5,7 +5,8 @@
 enum AnimationType
 {
 	BOUNCE,// バウンドアニメーション
-	SWAY// 左右に揺れるアニメーション
+	SWAY,// 左右に揺れるアニメーション
+	NONE// アニメーションなし
 };
 
 class AnimationManager
@@ -36,6 +37,7 @@ public:
 	// 画像を追加する関数
 	void BounceImage(const char* filePath, float startX, float startY, float gravity, float bounceFactor, float groundY);
 	void SwayImage(const char* filePath, float startX, float startY, float swayAmplitude, float swaySpeed);
+	void NormalImage(const char* filePath, float startX, float startY);
 
 	// 画像のアニメーション
 	void update();

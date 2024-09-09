@@ -3,14 +3,21 @@
 class Treasure
 {
 public:
-	Treasure();
+	Treasure(float x, float y);
 
-	virtual void Update();
+	void Update();
 
-	virtual void Draw();
+	void Draw();
 
 protected:
 	float x;
 	float y;
+
+	int texture;
+
+	int score;
+
+	float sizeX;
+	float sizeY;
 
 };
