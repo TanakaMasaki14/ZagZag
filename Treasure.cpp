@@ -17,7 +17,7 @@ Treasure::Treasure() {
 // 宝箱を縦400より下にランダム生成
 void Treasure::GenerateRandomPosition() {
     x = rand() % 800;          // x座標は0～800の範囲でランダム
-    y = 400 + rand() % (980 - 400);  // y座標は400～980の範囲でランダム
+    y = 600 + rand() % (980 - 600);  // y座標は400～980の範囲でランダム
 }
 
 // 宝箱を描画

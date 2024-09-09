@@ -23,7 +23,7 @@ private:
     int clearBgm;
     int overBgm;
     //int actionBgm;
-      //‰æ‘œ
+    //‰æ‘œ
     int clearImage;
     int overImage;
     int treasureImage;
