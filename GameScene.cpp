@@ -1,19 +1,25 @@
 #include "DxLib.h"
 #include "GameScene.h"
 #include "AnimationManager.h"
+#include "Terrain.h"
 
-GameScene::GameScene() {
+// マップの初期化(20*20サイズのチップで40*21のマップを作成)
+
+GameScene::GameScene():terrain(40,49,20) {
     scene = 0;
-
+    
     // 音楽のロード
     titleBgm = LoadSoundMem("Sound/title.mp3");
     stageBgm = LoadSoundMem("Sound/stage.mp3");
     clearBgm = LoadSoundMem("Sound/clear.mp3");
     overBgm = LoadSoundMem("Sound/over.mp3");
 
+    //画像の読み込み
     animation.BounceImage("Resource/TitleName.png", 270, 100, 0.5f, 0.7f, 200);
     animation.SwayImage("Resource/Icon.png", 100, 500, 1.0f, 0.05f);
     animation.NormalImage("Resource/GameStart.png", 260, 500);
+    clearImage = LoadGraph("Resource/Clear.png");
+    terrain.InitializeMap("Resource/Soil.png");
 
     if (scene == 0) {
         PlaySoundMem(titleBgm, DX_PLAYTYPE_LOOP);
@@ -87,11 +93,17 @@ void GameScene::Draw() {
         break;
 
     case 1:
+
+        terrain.Draw();
+
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Stage1");
         DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 2");
         break;
 
     case 2:
+
+        DrawGraph(270, 200, clearImage, true);
+
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Game Clear");
         DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 3");
         break;

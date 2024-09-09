@@ -1,4 +1,5 @@
 #include "AnimationManager.h"
+#include "Terrain.h"
 
 // ゲームシーンを管理するクラス
 class GameScene {
@@ -14,12 +15,10 @@ public:
 
 private:
     int scene; // 現在のシーン
-    int titleBgm;
-    int stageBgm;
-    int clearBgm;
-    int overBgm;
+    int titleBgm,stageBgm,clearBgm,overBgm;
+
+    int clearImage;
 
     AnimationManager animation;
-
-    //int actionBgm;
+    Terrain terrain;
 };
