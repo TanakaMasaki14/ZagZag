@@ -9,6 +9,9 @@ GameScene::GameScene() {
     stageBgm = LoadSoundMem("Sound/stage.mp3");
     clearBgm = LoadSoundMem("Sound/clear.mp3");
     overBgm = LoadSoundMem("Sound/over.mp3");
+    // âÊëúÉçÅ[Éh
+    clearImage = LoadGraph("Resource/clear.png");
+    overImage = LoadGraph("Resource/over.png");
 
     if (scene == 0) {
         PlaySoundMem(titleBgm, DX_PLAYTYPE_LOOP);
@@ -80,11 +83,13 @@ void GameScene::Draw() {
         break;
 
     case 2:
+        DrawGraph(0, 0, clearImage, TRUE);
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Game Clear");
         DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 3");
         break;
 
     case 3:
+        DrawGraph(0, 0, overImage, TRUE);
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Game Over");
         DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH T");
         break;

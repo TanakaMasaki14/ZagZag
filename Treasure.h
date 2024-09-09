@@ -4,10 +4,7 @@
 class Treasure
 {
 public:
-	Treasure();
-	virtual void Update();
-
-	virtual void Draw();
+	Treasure(float x, float y);
 
 private:
 protected:

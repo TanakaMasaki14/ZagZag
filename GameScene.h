@@ -14,12 +14,16 @@ public:
     void Draw();
 
 private:
-    int scene; // Œ»İ‚ÌƒV[ƒ“
+    int scene;
+    //‰¹Šy
     int titleBgm;
     int stageBgm;
     int clearBgm;
     int overBgm;
     //int actionBgm;
+      //‰æ‘œ
+    int clearImage;
+    int overImage;
 };
 
 #endif // GAME_SCENE_H
