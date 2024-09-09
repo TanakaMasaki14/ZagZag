@@ -15,7 +15,6 @@ private:
 
 	int hp = 0;
 
-	float sizeX = 0;
-	float sizeY = 0;
+
 };
 

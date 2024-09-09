@@ -36,10 +36,87 @@ Player::Player(float x, float y)
 
 void Player::Update()
 {
+	GetHitKeyStateAll(key);
+
+	Move();
+	Dig();
+
+	for (int i = 0; i < 256; i++) {
+		oldkey[i] = key[i];
+	}
 }
 
 void Player::Draw()
 {
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", sizeY);
+	//DrawFormatString(0, 0, GetColor(255, 255, 255), "%f", sizeY);
 	DrawGraph((int)x - (int)sizeX, (int)y - (int)sizeY, texture, true);
+	if (dig == true) {
+		DrawBox(digpointX - digSizeX, digpointY - digSizeY, digpointX + digSizeX, digpointY + digSizeY, GetColor(255, 255, 255), true);
+	}
+}
+
+void Player::Move()
+{
+	if (dig == false && attack == false) {
+		if (key[KEY_INPUT_W] == 1) {
+			y -= 4.0f;
+			viewpoint = 3;
+		}
+		if (key[KEY_INPUT_S] == 1) {
+			y += 4.0f;
+			viewpoint = 1;
+		}
+		if (key[KEY_INPUT_A] == 1) {
+			x -= 4.0f;
+			viewpoint = 2;
+		}
+		if (key[KEY_INPUT_D] == 1) {
+			x += 4.0f;
+			viewpoint = 0;
+		}
+	}
+}
+
+void Player::Dig()
+{
+	if (key[KEY_INPUT_SPACE] == 1 && oldkey[KEY_INPUT_SPACE] == 0 && dig == false && attack == false) {
+		//‰E
+		if (viewpoint == 0) {
+			digpointX = x + 25;
+			digpointY = y;
+			digSizeX = 10;
+			digSizeY = 20;
+		}
+		//‰º
+		if (viewpoint == 1) {
+			digpointX = x;
+			digpointY = y + 25;
+			digSizeX = 20;
+			digSizeY = 10;
+		}
+		//¶
+		if (viewpoint == 2) {
+			digpointX = x - 25;
+			digpointY = y;
+			digSizeX = 10;
+			digSizeY = 20;
+		}
+		//ã
+		if (viewpoint == 3) {
+			digpointX = x;
+			digpointY = y - 25;
+			digSizeX = 20;
+			digSizeY = 10;
+		}
+		dig = true;
+	}
+	if (dig == true) {
+		digtime--;
+		if (digtime <= 0) {
+			digtime = 10;
+			digpointX = 3000;
+			digpointY = 3000;
+			dig = false;
+		}
+	}
 }

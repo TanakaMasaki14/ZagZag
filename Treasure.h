@@ -13,5 +13,7 @@ protected:
 	float x;
 	float y;
 
+	float sizeX = 0;
+	float sizeY = 0;
 };
 

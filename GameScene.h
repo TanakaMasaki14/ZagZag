@@ -4,7 +4,9 @@
 #include "Enemy1.h"
 #include "Treasure.h"
 #include "Terrain.h"
+#include "Soil.h"
 #include <list>
+#include "Collision.h"
 
 class GameScene
 {
@@ -14,6 +16,10 @@ public:
 	void Update();
 
 	void Draw();
+
+	void Delete();
+
+	void Collision();
 
 private:
 	Player* player = nullptr;
