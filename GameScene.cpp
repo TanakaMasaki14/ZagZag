@@ -1,10 +1,11 @@
 #include "DxLib.h"
 #include "GameScene.h"
 #include "AnimationManager.h"
+#include "Treasure.h"
 
 GameScene::GameScene() {
     scene = 0;
-
+    treasure = new Treasure();
     // 音楽のロード
     titleBgm = LoadSoundMem("Sound/title.mp3");
     stageBgm = LoadSoundMem("Sound/stage.mp3");
@@ -13,6 +14,7 @@ GameScene::GameScene() {
     // 画像ロード
     clearImage = LoadGraph("Resource/clear.png");
     overImage = LoadGraph("Resource/over.png");
+    treasureImage = LoadGraph("Resource/treasure.png");
 
     animation.BounceImage("Resource/TitleName.png", 270, 100, 0.5f, 0.7f, 200);
     animation.SwayImage("Resource/Icon.png", 100, 500, 1.0f, 0.05f);
@@ -38,7 +40,7 @@ void GameScene::Update(char* keys, char* oldkeys) {
         // タイトル (Scene 0)
     case 0:
         animation.update();
-        if (keys[KEY_INPUT_1] == 1 && oldkeys[KEY_INPUT_1] == 0) {
+        if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
             scene = 1;
             StopSoundMem(titleBgm);
             PlaySoundMem(stageBgm, DX_PLAYTYPE_LOOP);
@@ -47,7 +49,7 @@ void GameScene::Update(char* keys, char* oldkeys) {
 
         // ステージ1 (Scene 1)
     case 1:
-        if (keys[KEY_INPUT_2] == 1 && oldkeys[KEY_INPUT_2] == 0) {
+        if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
             scene = 2;
             StopSoundMem(stageBgm);
             PlaySoundMem(clearBgm, DX_PLAYTYPE_BACK);
@@ -56,7 +58,7 @@ void GameScene::Update(char* keys, char* oldkeys) {
 
         // クリア (Scene 2)
     case 2:
-        if (keys[KEY_INPUT_3] == 1 && oldkeys[KEY_INPUT_3] == 0) {
+        if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
             scene = 3;
             StopSoundMem(clearBgm);
             PlaySoundMem(overBgm, DX_PLAYTYPE_BACK);
@@ -65,7 +67,7 @@ void GameScene::Update(char* keys, char* oldkeys) {
 
         // オーバー (Scene 3)
     case 3:
-        if (keys[KEY_INPUT_T] == 1 && oldkeys[KEY_INPUT_T] == 0) {
+        if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
             scene = 0;
             StopSoundMem(overBgm);
             PlaySoundMem(titleBgm, DX_PLAYTYPE_LOOP);
@@ -80,25 +82,20 @@ void GameScene::Draw() {
         // タイトル (Scene 0)
     case 0:
         animation.draw();
-        DrawFormatString(100, 100, GetColor(255, 255, 255), "Title");
-        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 1");
+        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH SPACE");
         break;
 
     case 1:
-        DrawFormatString(100, 100, GetColor(255, 255, 255), "Stage");
-        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 2");
+        treasure->Draw();
+        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH SPACE");
         break;
 
     case 2:
         DrawGraph(0, 0, clearImage, TRUE);
-        DrawFormatString(100, 100, GetColor(255, 255, 255), "Game Clear");
-        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 3");
         break;
 
     case 3:
         DrawGraph(0, 0, overImage, TRUE);
-        DrawFormatString(100, 100, GetColor(255, 255, 255), "Game Over");
-        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH T");
         break;
     }
 }
