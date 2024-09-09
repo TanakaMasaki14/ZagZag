@@ -33,8 +33,8 @@ public:
 	}
 
 protected:
-	float x;
-	float y;
+	float x = 0;
+	float y = 0;
 
 	float sizeX = 0;
 	float sizeY = 0;

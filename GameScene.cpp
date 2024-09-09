@@ -6,11 +6,13 @@ GameScene::GameScene()
 	//enemylist.push_back(new Enemy1(400, 400));
 
 
-	//l‹÷—\’è
-	terrainlist.push_back(new Soil(10, 210, true));
+
+	//l‹÷—\’è c39 ‰¡41
+	/*terrainlist.push_back(new Soil(10, 210, true));
 	terrainlist.push_back(new Soil(790, 210, true));
+
 	terrainlist.push_back(new Soil(10, 970, true));
-	terrainlist.push_back(new Soil(790, 970, true));
+	terrainlist.push_back(new Soil(790, 970, true));*/
 }
 
 void GameScene::Update()
