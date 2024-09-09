@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "GameScene.h"
+#include "AnimationManager.h"
 
 GameScene::GameScene() {
     scene = 0;
@@ -12,6 +13,10 @@ GameScene::GameScene() {
     // 画像ロード
     clearImage = LoadGraph("Resource/clear.png");
     overImage = LoadGraph("Resource/over.png");
+
+    animation.BounceImage("Resource/TitleName.png", 270, 100, 0.5f, 0.7f, 200);
+    animation.SwayImage("Resource/Icon.png", 100, 500, 1.0f, 0.05f);
+    animation.NormalImage("Resource/GameStart.png", 260, 500);
 
     if (scene == 0) {
         PlaySoundMem(titleBgm, DX_PLAYTYPE_LOOP);
@@ -32,6 +37,7 @@ void GameScene::Update(char* keys, char* oldkeys) {
     switch (scene) {
         // タイトル (Scene 0)
     case 0:
+        animation.update();
         if (keys[KEY_INPUT_1] == 1 && oldkeys[KEY_INPUT_1] == 0) {
             scene = 1;
             StopSoundMem(titleBgm);
@@ -73,12 +79,13 @@ void GameScene::Draw() {
     switch (scene) {
         // タイトル (Scene 0)
     case 0:
+        animation.draw();
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Title");
         DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 1");
         break;
 
     case 1:
-        DrawFormatString(100, 100, GetColor(255, 255, 255), "Stage1");
+        DrawFormatString(100, 100, GetColor(255, 255, 255), "Stage");
         DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 2");
         break;
 
