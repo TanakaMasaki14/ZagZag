@@ -3,30 +3,63 @@
 
 GameScene::GameScene() {
     scene = 0;
-    player = new Player(300, 300);
+
+    // 音楽のロード
+    titleBgm = LoadSoundMem("Sound/title.mp3");
+    stageBgm = LoadSoundMem("Sound/stage.mp3");
+    clearBgm = LoadSoundMem("Sound/clear.mp3");
+    overBgm = LoadSoundMem("Sound/over.mp3");
+
+    if (scene == 0) {
+        PlaySoundMem(titleBgm, DX_PLAYTYPE_LOOP);
+    }
+    if (scene == 1) {
+        PlaySoundMem(stageBgm, DX_PLAYTYPE_LOOP);
+    }
+    if (scene == 2) {
+        PlaySoundMem(clearBgm, DX_PLAYTYPE_BACK);
+    }
+    if (scene == 3) {
+        PlaySoundMem(overBgm, DX_PLAYTYPE_BACK);
+    }
 }
 
 // シーンの更新処理
 void GameScene::Update(char* keys, char* oldkeys) {
     switch (scene) {
-        // タイトル
+        // タイトル (Scene 0)
     case 0:
-        if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
+        if (keys[KEY_INPUT_1] == 1 && oldkeys[KEY_INPUT_1] == 0) {
             scene = 1;
+            StopSoundMem(titleBgm);
+            PlaySoundMem(stageBgm, DX_PLAYTYPE_LOOP);
         }
         break;
 
-        // ステージ1
+        // ステージ1 (Scene 1)
     case 1:
-        if (keys[KEY_INPUT_C] == 1 && oldkeys[KEY_INPUT_C] == 0) {
+        if (keys[KEY_INPUT_2] == 1 && oldkeys[KEY_INPUT_2] == 0) {
             scene = 2;
+            StopSoundMem(stageBgm);
+            PlaySoundMem(clearBgm, DX_PLAYTYPE_BACK);
         }
         break;
 
-        // クリア
+        // クリア (Scene 2)
     case 2:
+        if (keys[KEY_INPUT_3] == 1 && oldkeys[KEY_INPUT_3] == 0) {
+            scene = 3;
+            StopSoundMem(clearBgm);
+            PlaySoundMem(overBgm, DX_PLAYTYPE_BACK);
+        }
+        break;
+
+        // オーバー (Scene 3)
+    case 3:
         if (keys[KEY_INPUT_T] == 1 && oldkeys[KEY_INPUT_T] == 0) {
             scene = 0;
+            StopSoundMem(overBgm);
+            PlaySoundMem(titleBgm, DX_PLAYTYPE_LOOP);
         }
         break;
     }
@@ -35,22 +68,24 @@ void GameScene::Update(char* keys, char* oldkeys) {
 // シーンの描画処理
 void GameScene::Draw() {
     switch (scene) {
-        // タイトル
+        // タイトル (Scene 0)
     case 0:
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Title");
-        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH SPACE");
+        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 1");
         break;
 
-        // ステージ1
     case 1:
-        player->Draw();
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Stage1");
-        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH C");
+        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 2");
         break;
 
-        // クリア
     case 2:
-        DrawFormatString(100, 100, GetColor(255, 255, 255), "Clear");
+        DrawFormatString(100, 100, GetColor(255, 255, 255), "Game Clear");
+        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 3");
+        break;
+
+    case 3:
+        DrawFormatString(100, 100, GetColor(255, 255, 255), "Game Over");
         DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH T");
         break;
     }
