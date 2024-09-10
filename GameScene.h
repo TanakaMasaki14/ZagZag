@@ -1,5 +1,6 @@
 #include "AnimationManager.h"
 #include "Terrain.h"
+#include "Player.h"
 
 // ゲームシーンを管理するクラス
 class GameScene {
@@ -21,4 +22,5 @@ private:
 
     AnimationManager animation;
     Terrain terrain;
+    Player player;
 };

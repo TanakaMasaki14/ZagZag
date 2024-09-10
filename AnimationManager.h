@@ -6,6 +6,7 @@ enum AnimationType
 {
 	BOUNCE,// バウンドアニメーション
 	SWAY,// 左右に揺れるアニメーション
+	FADE,// 徐々に消えたり現れたりするアニメーション
 	NONE// アニメーションなし
 };
 
@@ -13,7 +14,7 @@ class AnimationManager
 {
 private:
 
-	struct ImageDate {
+	struct ImageData {
 		int imageHandle; // 画像ハンドル
 		float posX, posY; // 画像の位置
 		float imageSpeedX,imageSpeedY; // 画像のXY方向の速度
@@ -24,9 +25,11 @@ private:
 		float swayAmplitude; // 揺れ幅(左右の揺れ用)
 		float swaySpeed; // 揺れる速度(左右の揺れ用)
 		float swayAngle; // 現在の角度(左右の揺れ用)
+		float alpha; // 画像のアルファ値
+		float alphaSpeed; // アルファ値の変化スピード 
 	};
 
-	std::vector<ImageDate> images;// 画像とアニメーションのリスト
+	std::vector<ImageData> images;// 画像とアニメーションのリスト
 
 public:
 	AnimationManager();
@@ -37,6 +40,7 @@ public:
 	// 画像を追加する関数
 	void BounceImage(const char* filePath, float startX, float startY, float gravity, float bounceFactor, float groundY);
 	void SwayImage(const char* filePath, float startX, float startY, float swayAmplitude, float swaySpeed);
+	void FadeImage(const char* filePath, float startX, float startY, float alphaSpeed);
 	void NormalImage(const char* filePath, float startX, float startY);
 
 	// 画像のアニメーション

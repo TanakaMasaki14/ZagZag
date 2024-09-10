@@ -24,6 +24,8 @@ public:
 	void AddMapChip(const char* filePath, float posX, float posY);
 	
 	void InitializeMap(const char* filePath);
+
+	void Remove(float posX, float posY);
 	
 	void Update();
 

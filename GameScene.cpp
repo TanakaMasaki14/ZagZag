@@ -2,10 +2,11 @@
 #include "GameScene.h"
 #include "AnimationManager.h"
 #include "Terrain.h"
+#include "Player.h"
 
 // マップの初期化(20*20サイズのチップで40*21のマップを作成)
 
-GameScene::GameScene():terrain(40,49,20) {
+GameScene::GameScene() :terrain(40, 49, 20),player(0,0){
     scene = 0;
     
     // 音楽のロード
@@ -17,6 +18,7 @@ GameScene::GameScene():terrain(40,49,20) {
     //画像の読み込み
     animation.BounceImage("Resource/TitleName.png", 270, 100, 0.5f, 0.7f, 200);
     animation.SwayImage("Resource/Icon.png", 100, 500, 1.0f, 0.05f);
+    animation.FadeImage("Resource/PushSpace.png", 260, 700, 0.02f);
     animation.NormalImage("Resource/GameStart.png", 260, 500);
     clearImage = LoadGraph("Resource/Clear.png");
     terrain.InitializeMap("Resource/Soil.png");
@@ -53,6 +55,9 @@ void GameScene::Update(char* keys, char* oldkeys) {
 
         // ステージ1 (Scene 1)
     case 1:
+
+        player.Update(terrain);
+
         if (keys[KEY_INPUT_2] == 1 && oldkeys[KEY_INPUT_2] == 0) {
             scene = 2;
             StopSoundMem(stageBgm);
@@ -95,6 +100,7 @@ void GameScene::Draw() {
     case 1:
 
         terrain.Draw();
+        player.Draw();
 
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Stage1");
         DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 2");

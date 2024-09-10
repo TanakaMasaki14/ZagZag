@@ -30,6 +30,22 @@ void Terrain::InitializeMap(const char* filePath)
 	}
 }
 
+void Terrain::Remove(float posX, float posY)
+{
+	for (auto it = mapChips.begin(); it != mapChips.end(); ++it)
+	{
+		// マップチップの座標とプレイヤーの掘る座標を比較(当たり判定)
+		{
+			if (it->posX == posX && it->posY == posY)
+			{
+				// マップチップを削除
+				it = mapChips.erase(it);
+				break;
+			}
+		}
+	}
+}
+
 void Terrain::Update()
 {
 }
