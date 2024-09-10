@@ -142,6 +142,9 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rope.cpp" />
+    <ClCompile Include="RopeLeadingPart.cpp" />
+    <ClCompile Include="soil.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Treasure.cpp" />
   </ItemGroup>
@@ -152,6 +155,9 @@
     <ClInclude Include="Enemy1.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rope.h" />
+    <ClInclude Include="RopeLeadingPart.h" />
+    <ClInclude Include="soil.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Treasure.h" />
   </ItemGroup>

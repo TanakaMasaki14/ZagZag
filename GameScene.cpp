@@ -5,6 +5,7 @@
 
 GameScene::GameScene() {
     scene = 0;
+    player = new Player(300, 300);
     treasure = new Treasure();
     // 音楽のロード
     titleBgm = LoadSoundMem("Sound/title.mp3");
@@ -49,11 +50,23 @@ void GameScene::Update(char* keys, char* oldkeys) {
 
         // ステージ1 (Scene 1)
     case 1:
-        if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
+        player->Update();
+
+        for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
+            (*enemyitr)->Update();
+        }
+        for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end(); ++terrainitr) {
+            (*terrainitr)->Update();
+        }
+
+        if (keys[KEY_INPUT_RETURN] == 1 && oldkeys[KEY_INPUT_RETURN] == 0) {
             scene = 2;
             StopSoundMem(stageBgm);
             PlaySoundMem(clearBgm, DX_PLAYTYPE_BACK);
         }
+
+        Collision();
+        Delete();
         break;
 
         // クリア (Scene 2)
@@ -82,12 +95,17 @@ void GameScene::Draw() {
         // タイトル (Scene 0)
     case 0:
         animation.draw();
-        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH SPACE");
         break;
 
     case 1:
         treasure->Draw();
-        DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH SPACE");
+        player->Draw();
+        for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
+            (*enemyitr)->Draw();
+        }
+        for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end(); ++terrainitr) {
+            (*terrainitr)->Draw();
+        }
         break;
 
     case 2:
@@ -97,5 +115,31 @@ void GameScene::Draw() {
     case 3:
         DrawGraph(0, 0, overImage, TRUE);
         break;
+    }
+}
+
+void GameScene::Delete()
+{
+    for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end();) {
+        if ((*terrainitr)->GetIsDig() == true) {
+            terrainitr = terrainlist.erase(terrainitr);
+        }
+        else
+        {
+            ++terrainitr;
+        }
+    }
+}
+
+void GameScene::Collision()
+{
+    for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end(); ++terrainitr) {
+        if (Collision::SquareToSquare(player->GetDigPointLeftX(), player->GetDigPointUpY(),
+            player->GetDigPointRightX(), player->GetDigPointDownY(),
+            (*terrainitr)->GetLeftX(), (*terrainitr)->GetUpY(),
+            (*terrainitr)->GetRightX(), (*terrainitr)->GetDownY())) {
+            //掘られる
+            (*terrainitr)->Diged();
+        }
     }
 }

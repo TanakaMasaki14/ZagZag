@@ -1,42 +1,55 @@
-#include "Enemy1.h"
+#include "Soil.h"
 #include <iostream>
 
 
 
-Enemy1::Enemy1(float x, float y)
+
+Soil::Soil(float x, float y, bool canDig)
 {
 	this->x = x;
 	this->y = y;
+	this->canDig = canDig;
+	//this->intressure = intressure;
 
 	int* sizeX = new int(0);
 	int* sizeY = new int(0);
-	texture = LoadGraph("Resources/test.png");
-	GetGraphSize(texture, sizeX, sizeY);
 
+	digtexture = LoadGraph("Resources/testsoil.png");
+	nodigtexture = LoadGraph("Resources/testsoil.png");
+
+	GetGraphSize(digtexture, sizeX, sizeY);
 	if (sizeX != nullptr) {
 		this->sizeX = static_cast<float>(*sizeX);
 	}
-	else {
+	else
+	{
 		// エラーハンドリングコードをここに追加
 		std::cerr << "Error: sizeX is a NULL pointer." << std::endl;
 	}
+
 	if (sizeY != nullptr) {
 		this->sizeY = static_cast<float>(*sizeY);
 	}
-	else {
+	else
+	{
 		// エラーハンドリングコードをここに追加
 		std::cerr << "Error: sizeY is a NULL pointer." << std::endl;
 	}
 	this->sizeX = this->sizeX / 2;
 	this->sizeY = this->sizeY / 2;
+
 }
 
-void Enemy1::Update()
+void Soil::Update()
 {
 }
 
-void Enemy1::Draw()
+void Soil::Draw()
 {
-	//DrawBox(x - sizeX, y - sizeY, x + sizeX, y + sizeY, GetColor(255, 255, 255), true);
-	DrawGraph((int)x - (int)sizeX, (int)y - (int)sizeY, texture, true);
+	if (canDig == true) {
+		DrawGraph((int)x - (int)sizeX, (int)y - (int)sizeY, digtexture, true);
+	}
+	if (canDig == false) {
+		DrawGraph((int)x - (int)sizeX, (int)y - (int)sizeY, nodigtexture, true);
+	}
 }
