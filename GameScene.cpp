@@ -5,8 +5,13 @@
 
 GameScene::GameScene() {
     scene = 0;
-    player = new Player(300, 300);
+    player = new Player(300, 100);
     treasure = new Treasure();
+    for (int i = 0; i < 39; i++) {
+        for (int j = 0; j < 41; j++) {
+            terrainlist.push_back(new Soil(10 + j * 20, 210 + i * 20, true));
+        }
+    }
     // ‰¹Šy‚Ìƒ[ƒh
     titleBgm = LoadSoundMem("Sound/title.mp3");
     stageBgm = LoadSoundMem("Sound/stage.mp3");
