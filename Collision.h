@@ -1,7 +1,19 @@
 #pragma once
 
+struct Vector2
+{
+	float x;
+	float y;
+};
+
 class Collision
 {
+private:
+
+	static float Cross(float vector1X, float vector1Y, float vector2X, float vector2Y);
+
+	static Vector2 VectorCalc(float startX, float startY, float endX, float endY);
+
 public:
 
 	/// <summary>
@@ -19,6 +31,7 @@ public:
 	static bool SquareToSquare(float mx1, float my1, float mx2, float my2, float ex1, float ey1, float ex2, float ey2);
 
 
+	static bool PointToSquare(float px, float py, float mx1, float my1, float mx2, float my2);
 
 };
 

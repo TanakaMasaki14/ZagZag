@@ -2,10 +2,14 @@
 
 GameScene::GameScene()
 {
-	player = new Player(300, 300);
+	player = new Player(300, 100);
 	//enemylist.push_back(new Enemy1(400, 400));
 
-
+	for (int i = 0; i < 39; i++) {
+		for (int j = 0; j < 41; j++) {
+			terrainlist.push_back(new Soil(10 + j * 20, 210 + i * 20, true));
+		}
+	}
 
 	//Žl‹÷—\’è c39 ‰¡41
 	/*terrainlist.push_back(new Soil(10, 210, true));
