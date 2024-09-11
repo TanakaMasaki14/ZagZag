@@ -21,6 +21,11 @@ Player::Player(float x, float y)
 	righttexturepickaxe[3] = LoadGraph("Resources/pickaxe/Right/pickaxe3.png");
 	righttexturepickaxe[4] = LoadGraph("Resources/pickaxe/Right/pickaxe4.png");
 	righttexturepickaxe[5] = LoadGraph("Resources/pickaxe/Right/pickaxe5.png");
+	righttexturepickaxe[6] = LoadGraph("Resources/pickaxe/Right/pickaxe6.png");
+	righttexturepickaxe[7] = LoadGraph("Resources/pickaxe/Right/pickaxe7.png");
+	righttexturepickaxe[8] = LoadGraph("Resources/pickaxe/Right/pickaxe8.png");
+	righttexturepickaxe[9] = LoadGraph("Resources/pickaxe/Right/pickaxe9.png");
+
 
 	lefttexturepickaxe[0] = LoadGraph("Resources/pickaxe/Left/pickaxe0.png");
 	lefttexturepickaxe[1] = LoadGraph("Resources/pickaxe/Left/pickaxe1.png");
@@ -28,6 +33,10 @@ Player::Player(float x, float y)
 	lefttexturepickaxe[3] = LoadGraph("Resources/pickaxe/Left/pickaxe3.png");
 	lefttexturepickaxe[4] = LoadGraph("Resources/pickaxe/Left/pickaxe4.png");
 	lefttexturepickaxe[5] = LoadGraph("Resources/pickaxe/Left/pickaxe5.png");
+	lefttexturepickaxe[6] = LoadGraph("Resources/pickaxe/Left/pickaxe6.png");
+	lefttexturepickaxe[7] = LoadGraph("Resources/pickaxe/Left/pickaxe7.png");
+	lefttexturepickaxe[8] = LoadGraph("Resources/pickaxe/Left/pickaxe8.png");
+	lefttexturepickaxe[9] = LoadGraph("Resources/pickaxe/Left/pickaxe9.png");
 
 	uptexturepickaxe[0] = LoadGraph("Resources/pickaxe/Up/pickaxe0.png");
 	uptexturepickaxe[1] = LoadGraph("Resources/pickaxe/Up/pickaxe1.png");
@@ -35,6 +44,10 @@ Player::Player(float x, float y)
 	uptexturepickaxe[3] = LoadGraph("Resources/pickaxe/Up/pickaxe3.png");
 	uptexturepickaxe[4] = LoadGraph("Resources/pickaxe/Up/pickaxe4.png");
 	uptexturepickaxe[5] = LoadGraph("Resources/pickaxe/Up/pickaxe5.png");
+	uptexturepickaxe[6] = LoadGraph("Resources/pickaxe/Up/pickaxe6.png");
+	uptexturepickaxe[7] = LoadGraph("Resources/pickaxe/Up/pickaxe7.png");
+	uptexturepickaxe[8] = LoadGraph("Resources/pickaxe/Up/pickaxe8.png");
+	uptexturepickaxe[9] = LoadGraph("Resources/pickaxe/Up/pickaxe9.png");
 
 	downtexturepickaxe[0] = LoadGraph("Resources/pickaxe/Down/pickaxe0.png");
 	downtexturepickaxe[1] = LoadGraph("Resources/pickaxe/Down/pickaxe1.png");
@@ -42,6 +55,10 @@ Player::Player(float x, float y)
 	downtexturepickaxe[3] = LoadGraph("Resources/pickaxe/Down/pickaxe3.png");
 	downtexturepickaxe[4] = LoadGraph("Resources/pickaxe/Down/pickaxe4.png");
 	downtexturepickaxe[5] = LoadGraph("Resources/pickaxe/Down/pickaxe5.png");
+	downtexturepickaxe[6] = LoadGraph("Resources/pickaxe/Down/pickaxe6.png");
+	downtexturepickaxe[7] = LoadGraph("Resources/pickaxe/Down/pickaxe7.png");
+	downtexturepickaxe[8] = LoadGraph("Resources/pickaxe/Down/pickaxe8.png");
+	downtexturepickaxe[9] = LoadGraph("Resources/pickaxe/Down/pickaxe9.png");
 
 
 	GetGraphSize(righttexture, sizeX, sizeY);
@@ -212,7 +229,7 @@ void Player::Dig()
 	}
 	if (dig == true) {
 		digtime++;
-		if (digtime >= 12) {
+		if (digtime >= 10) {
 			digtime = 0;
 			digpointX = 3000;
 			digpointY = 3000;

@@ -106,10 +106,10 @@ private:
 	int lefttexture;
 	int uptexture;
 	int downtexture;
-	int lefttexturepickaxe[6];
-	int righttexturepickaxe[6];
-	int uptexturepickaxe[6];
-	int downtexturepickaxe[6];
+	int lefttexturepickaxe[10];
+	int righttexturepickaxe[10];
+	int uptexturepickaxe[10];
+	int downtexturepickaxe[10];
 
 
 	int viewpoint = 0; //0:âE 1:â∫ 2:ç∂ 3:è„
