@@ -16,6 +16,8 @@ public:
 
 	void HitSoil();
 
+	void Attack();
+
 	//“–‚½‚è”»’è‚ÌƒZƒbƒg
 	void SetFailHitLeft() {
 		hitLeft = false;
@@ -126,8 +128,15 @@ private:
 
 	bool attack = false;
 
+	float attackPointX;
+	float attackPointY;
+
+	float attackSizeX = 0;
+	float attackSizeY = 0;
+
+	int attacktime = 0;
+
 	char key[256];
 	char oldkey[256];
 
 };
-

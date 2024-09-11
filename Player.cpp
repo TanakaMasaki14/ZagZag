@@ -91,6 +91,7 @@ void Player::Update()
 
 	Move();
 	Dig();
+	Attack();
 	HitSoil();
 
 	for (int i = 0; i < 256; i++) {
@@ -141,6 +142,10 @@ void Player::Draw()
 		if (viewpoint == 3) {
 			DrawGraph(digpointX - digSizeX, digpointY - digSizeY, uptexturepickaxe[digtime], true);
 		}
+	}
+	if (attack == true) {
+		DrawBox((int)attackPointX - attackSizeX, (int)attackPointY - attackSizeY, (int)attackPointX + attackSizeX, (int)attackPointY + attackSizeY, GetColor(255, 255, 255), true);
+
 	}
 }
 
@@ -258,6 +263,47 @@ void Player::HitSoil()
 	if (hitDown) {
 		if (moveDown) {
 			y = sy;
+		}
+	}
+}
+
+void Player::Attack()
+{
+	if (key[KEY_INPUT_RETURN] == 1 && oldkey[KEY_INPUT_RETURN] == 0 && dig == false && attack == false) {
+		attack = true;
+		if (viewpoint == 0) {
+			attackSizeX = 20;
+			attackSizeY = 10;
+			attackPointX = x + 35;
+			attackPointY = y;
+
+		}
+		if (viewpoint == 1) {
+			attackSizeX = 10;
+			attackSizeY = 20;
+			attackPointX = x;
+			attackPointY = y + 35;
+		}
+		if (viewpoint == 2) {
+			attackSizeX = 20;
+			attackSizeY = 10;
+			attackPointX = x - 35;
+			attackPointY = y;
+		}
+		if (viewpoint == 3) {
+			attackSizeX = 10;
+			attackSizeY = 20;
+			attackPointX = x;
+			attackPointY = y - 35;
+		}
+	}
+	if (attack == true) {
+		attacktime++;
+		if (attacktime >= 20) {
+			attacktime = 0;
+			attackPointX = 3000;
+			attackPointY = 3000;
+			attack = false;
 		}
 	}
 }

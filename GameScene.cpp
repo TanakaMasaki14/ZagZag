@@ -54,7 +54,7 @@ void GameScene::Update(char* keys, char* oldkeys) {
     case 0:
         animation.update();
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
-            StartFadeOut(1);  // ステージ1へフェードアウト
+            StartFadeOut(1);
         }
         break;
 
@@ -69,8 +69,8 @@ void GameScene::Update(char* keys, char* oldkeys) {
             (*terrainitr)->Update();
         }
 
-        if (keys[KEY_INPUT_RETURN] == 1 && oldkeys[KEY_INPUT_RETURN] == 0) {
-            StartFadeOut(2);  // クリア画面へフェードアウト
+        if (keys[KEY_INPUT_C] == 1 && oldkeys[KEY_INPUT_C] == 0) {
+            StartFadeOut(2);
         }
 
         Collision();
@@ -80,14 +80,14 @@ void GameScene::Update(char* keys, char* oldkeys) {
         // クリア (Scene 2)
     case 2:
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
-            StartFadeOut(3);  // オーバー画面へフェードアウト
+            StartFadeOut(3);
         }
         break;
 
         // オーバー (Scene 3)
     case 3:
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
-            StartFadeOut(0);  // タイトル画面へフェードアウト
+            StartFadeOut(0);
         }
         break;
     }

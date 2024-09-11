@@ -47,7 +47,6 @@ private:
     int stageBgm;
     int clearBgm;
     int overBgm;
-    //int actionBgm;
     //‰æ‘œ
     int titleImage;
     int stageImage;
