@@ -10,6 +10,21 @@ public:
 
 	virtual void Draw();
 
+	//À•Wæ“¾
+	float GetLeftX() {
+		return x - sizeX;
+	}
+	float GetRightX() {
+		return x + sizeX;
+	}
+
+	float GetUpY() {
+		return y - sizeY;
+	}
+	float GetDownY() {
+		return y + sizeY;
+	}
+
 protected:
 	float x = 0;
 	float y = 0;

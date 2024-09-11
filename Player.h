@@ -84,6 +84,21 @@ public:
 		return digpointY + digSizeY;
 	}
 
+	//çUåÇ
+	float GetAttackPointLeftX() {
+		return attackPointX - attackSizeX;
+	}
+	float GetAttackPointRightX() {
+		return attackPointX + attackSizeX;
+	}
+	float GetAttackPointUpY() {
+		return attackPointY - attackSizeY;
+	}
+	float GetAttackPointDownY() {
+		return attackPointY + attackSizeY;
+	}
+
+
 private:
 	float x = 0;
 	float y = 0;

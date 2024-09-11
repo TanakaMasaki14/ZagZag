@@ -70,6 +70,8 @@ void GameScene::Collision()
 {
 	PlayerSoilCollision();
 	DigSoilCollision();
+	PlayerEnemyCollision();
+	PlayerAttackEnemyCollision();
 }
 
 void GameScene::PlayerSoilCollision()
@@ -128,4 +130,14 @@ void GameScene::DigSoilCollision()
 			(*terrainitr)->Diged();
 		}
 	}
+}
+
+void GameScene::PlayerEnemyCollision()
+{
+
+}
+
+void GameScene::PlayerAttackEnemyCollision()
+{
+
 }
