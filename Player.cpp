@@ -5,8 +5,8 @@
 
 Player::Player(float x, float y) : x(x), y(y), sizeX(0), sizeY(0) // 初期化リストを使用して初期化
 {
-	this->x = x;
-	this->y = y;
+	//this->x = x;
+	//this->y = y;
 
 	int* sizeX = new int(0);
 	int* sizeY = new int(0);
@@ -121,4 +121,12 @@ void Player::Dig(Terrain& terrain)
 			dig = false;
 		}
 	}
+}
+
+int Player::GetX() const {
+	return x;
+}
+
+int Player::GetY() const {
+	return y;
 }

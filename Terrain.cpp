@@ -13,6 +13,7 @@ void Terrain::AddMapChip(const char* filePath, float posX, float posY)
 	mapChip.imageHandle = LoadGraph(filePath);
 	mapChip.posX = posX;
 	mapChip.posY = posY;
+	mapChip.isRemove = false;
 	mapChips.push_back(mapChip);
 }
 
@@ -32,16 +33,14 @@ void Terrain::InitializeMap(const char* filePath)
 
 void Terrain::Remove(float posX, float posY)
 {
-	for (auto it = mapChips.begin(); it != mapChips.end(); ++it)
+	for (auto& mapChip : mapChips)
 	{
-		// マップチップの座標とプレイヤーの掘る座標を比較(当たり判定)
+		// プレイヤーが掘った位置とマップチップの位置を比較
+		if (mapChip.posX == posX && mapChip.posY == posY)
 		{
-			if (it->posX == posX && it->posY == posY)
-			{
-				// マップチップを削除
-				it = mapChips.erase(it);
-				break;
-			}
+			// マップチップを非表示にする（削除フラグを立てる）
+			mapChip.isRemove = true;
+			break;
 		}
 	}
 }
@@ -54,7 +53,7 @@ void Terrain::Draw()
 {
 	for (const auto& chip : mapChips)
 	{
-		if (chip.imageHandle != -1)
+		if (chip.imageHandle != -1 && !chip.isRemove)
 		{
 			DrawGraph(static_cast<int>(chip.posX), static_cast<int>(chip.posY), chip.imageHandle, TRUE);
 		}

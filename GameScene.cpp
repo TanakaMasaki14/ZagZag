@@ -6,7 +6,7 @@
 
 // マップの初期化(20*20サイズのチップで40*21のマップを作成)
 
-GameScene::GameScene() :terrain(40, 49, 20),player(0,0){
+GameScene::GameScene() :terrain(40, 49, 20),player(0,0), fadeAlpha(255), isFadingIn(true), enemy(200, 200, 2) {
     scene = 0;
     
     // 音楽のロード
@@ -50,6 +50,8 @@ void GameScene::Update(char* keys, char* oldkeys) {
             scene = 1;
             StopSoundMem(titleBgm);
             PlaySoundMem(stageBgm, DX_PLAYTYPE_LOOP);
+            isFadingIn = true; // シーンが切り替わるときにフェードインを開始
+            fadeAlpha = 255;   // フェードインの透明度をリセット
         }
         break;
 
@@ -57,6 +59,16 @@ void GameScene::Update(char* keys, char* oldkeys) {
     case 1:
 
         player.Update(terrain);
+        enemy.Update(player);  // 敵がプレイヤーを追尾
+
+        // フェードイン処理
+        if (isFadingIn) {
+            fadeAlpha -= 3; // フェードのスピードを調整
+            if (fadeAlpha <= 0) {
+                fadeAlpha = 0;
+                isFadingIn = false;
+            }
+        }
 
         if (keys[KEY_INPUT_2] == 1 && oldkeys[KEY_INPUT_2] == 0) {
             scene = 2;
@@ -87,10 +99,12 @@ void GameScene::Update(char* keys, char* oldkeys) {
 
 // シーンの描画処理
 void GameScene::Draw() {
+
     switch (scene) {
         // タイトル (Scene 0)
     case 0:
 
+        terrain.Draw();
         animation.draw();
 
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Title");
@@ -101,7 +115,15 @@ void GameScene::Draw() {
 
         terrain.Draw();
         player.Draw();
+        enemy.Draw();
 
+        // フェードイン描画
+        if (isFadingIn) {
+            SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
+            DrawBox(0, 0, 800, 980, GetColor(0, 0, 0), TRUE); // 画面全体を覆う黒い矩形
+            SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0); // ブレンドモードをリセット
+        }
+       
         DrawFormatString(100, 100, GetColor(255, 255, 255), "Stage1");
         DrawFormatString(100, 150, GetColor(255, 255, 255), "PUSH 2");
         break;

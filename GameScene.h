@@ -1,6 +1,7 @@
 #include "AnimationManager.h"
 #include "Terrain.h"
 #include "Player.h"
+#include "Enemy.h"
 
 // ゲームシーンを管理するクラス
 class GameScene {
@@ -20,7 +21,11 @@ private:
 
     int clearImage;
 
+    int fadeAlpha; // フェードの透明度
+    bool isFadingIn; // フェードイン中かどうか
+
     AnimationManager animation;
     Terrain terrain;
     Player player;
+    Enemy enemy;
 };

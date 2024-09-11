@@ -15,6 +15,9 @@ public:
 
 	void Dig(Terrain& terrain);
 
+	int GetX() const;  // プレイヤーのX座標を返す
+	int GetY() const;  // プレイヤーのY座標を返す
+
 	///???W??“?
 	//x?¶
 	float GetDigPointLeftX() {

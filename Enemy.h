@@ -1,17 +1,17 @@
-#pragma once
-#include <DxLib.h>
+#include "DxLib.h"
+#include "Player.h"  // プレイヤーのクラスを参照
 
-class Enemy
-{
+class Enemy {
 public:
-	Enemy();
+    Enemy(int startX, int startY, int speed);  // コンストラクタ
 
-	virtual void Update();
+    void Update(const Player& player);  // 更新処理（追尾）
+    void Draw();  // 描画処理
 
-	virtual void Draw();
+private:
+    int x, y;  // 敵の位置
+    int speed;  // 敵の移動速度
+    int enemyImage;  // 敵の画像
 
-protected:
-	float x = 0;
-	float y = 0;
-
+    void ChasePlayer(int playerX, int playerY);  // プレイヤーを追尾する関数
 };

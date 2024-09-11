@@ -11,6 +11,7 @@ private:
 		int imageHandle; // 画像のハンドル
 		float posX; // X座標
 		float posY; // Y座標
+		bool isRemove = false;
 	};
 
 	int mapWidth; // マップの横幅(チップ単位)
