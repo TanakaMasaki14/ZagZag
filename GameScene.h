@@ -40,6 +40,7 @@ private:
     int overBgm;
     //int actionBgm;
     //‰æ‘œ
+    int titleImage;
     int clearImage;
     int overImage;
     int treasureImage;

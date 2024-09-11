@@ -18,6 +18,7 @@ GameScene::GameScene() {
     clearBgm = LoadSoundMem("Sound/clear.mp3");
     overBgm = LoadSoundMem("Sound/over.mp3");
     // 画像ロード
+    titleImage = LoadGraph("Resource/title.png");
     clearImage = LoadGraph("Resource/clear.png");
     overImage = LoadGraph("Resource/over.png");
     treasureImage = LoadGraph("Resource/treasure.png");
@@ -99,6 +100,7 @@ void GameScene::Draw() {
     switch (scene) {
         // タイトル (Scene 0)
     case 0:
+        DrawGraph(0, 0, titleImage, TRUE);
         animation.draw();
         break;
 
