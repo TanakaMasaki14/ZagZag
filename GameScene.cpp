@@ -3,6 +3,11 @@
 #include "AnimationManager.h"
 #include "Treasure.h"
 
+// フェードアウト用のクラスインスタンス追加
+FadeOut fadeOut;
+bool isFadingOut = false;  // フェードアウト中かどうか
+int nextScene = -1;        // 次のシーンの指定
+
 GameScene::GameScene() {
     scene = 0;
     player = new Player(300, 100);
@@ -27,30 +32,28 @@ GameScene::GameScene() {
     animation.SwayImage("Resource/Icon.png", 100, 500, 1.0f, 0.05f);
     animation.NormalImage("Resource/GameStart.png", 260, 500);
 
-    if (scene == 0) {
-        PlaySoundMem(titleBgm, DX_PLAYTYPE_LOOP);
-    }
-    if (scene == 1) {
-        PlaySoundMem(stageBgm, DX_PLAYTYPE_LOOP);
-    }
-    if (scene == 2) {
-        PlaySoundMem(clearBgm, DX_PLAYTYPE_BACK);
-    }
-    if (scene == 3) {
-        PlaySoundMem(overBgm, DX_PLAYTYPE_BACK);
-    }
+    PlaySceneBGM(scene);
 }
 
 // シーンの更新処理
 void GameScene::Update(char* keys, char* oldkeys) {
+    // フェードアウト中の場合
+    if (isFadingOut) {
+        if (fadeOut.Update()) {
+            scene = nextScene;
+            isFadingOut = false;
+            fadeOut.Reset();
+            PlaySceneBGM(scene);
+        }
+        return;  // フェードアウト中は他の処理をしない
+    }
+
     switch (scene) {
         // タイトル (Scene 0)
     case 0:
         animation.update();
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
-            scene = 1;
-            StopSoundMem(titleBgm);
-            PlaySoundMem(stageBgm, DX_PLAYTYPE_LOOP);
+            StartFadeOut(1);  // ステージ1へフェードアウト
         }
         break;
 
@@ -66,9 +69,7 @@ void GameScene::Update(char* keys, char* oldkeys) {
         }
 
         if (keys[KEY_INPUT_RETURN] == 1 && oldkeys[KEY_INPUT_RETURN] == 0) {
-            scene = 2;
-            StopSoundMem(stageBgm);
-            PlaySoundMem(clearBgm, DX_PLAYTYPE_BACK);
+            StartFadeOut(2);  // クリア画面へフェードアウト
         }
 
         Collision();
@@ -78,18 +79,14 @@ void GameScene::Update(char* keys, char* oldkeys) {
         // クリア (Scene 2)
     case 2:
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
-            scene = 3;
-            StopSoundMem(clearBgm);
-            PlaySoundMem(overBgm, DX_PLAYTYPE_BACK);
+            StartFadeOut(3);  // オーバー画面へフェードアウト
         }
         break;
 
         // オーバー (Scene 3)
     case 3:
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
-            scene = 0;
-            StopSoundMem(overBgm);
-            PlaySoundMem(titleBgm, DX_PLAYTYPE_LOOP);
+            StartFadeOut(0);  // タイトル画面へフェードアウト
         }
         break;
     }
@@ -123,30 +120,61 @@ void GameScene::Draw() {
         DrawGraph(0, 0, overImage, TRUE);
         break;
     }
+
+    // フェードアウト中であればフェードアウトを描画
+    if (isFadingOut) {
+        fadeOut.Draw();
+    }
 }
 
-void GameScene::Delete()
-{
+void GameScene::Delete() {
     for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end();) {
         if ((*terrainitr)->GetIsDig() == true) {
             terrainitr = terrainlist.erase(terrainitr);
         }
-        else
-        {
+        else {
             ++terrainitr;
         }
     }
 }
 
-void GameScene::Collision()
-{
+void GameScene::Collision() {
     for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end(); ++terrainitr) {
         if (Collision::SquareToSquare(player->GetDigPointLeftX(), player->GetDigPointUpY(),
             player->GetDigPointRightX(), player->GetDigPointDownY(),
             (*terrainitr)->GetLeftX(), (*terrainitr)->GetUpY(),
             (*terrainitr)->GetRightX(), (*terrainitr)->GetDownY())) {
-            //掘られる
+            // 掘られる
             (*terrainitr)->Diged();
         }
+    }
+}
+
+// フェードアウトを開始する
+void GameScene::StartFadeOut(int targetScene) {
+    isFadingOut = true;
+    nextScene = targetScene;
+}
+
+// シーンに応じたBGMを再生する
+void GameScene::PlaySceneBGM(int currentScene) {
+    StopSoundMem(titleBgm);
+    StopSoundMem(stageBgm);
+    StopSoundMem(clearBgm);
+    StopSoundMem(overBgm);
+
+    switch (currentScene) {
+    case 0:
+        PlaySoundMem(titleBgm, DX_PLAYTYPE_LOOP);
+        break;
+    case 1:
+        PlaySoundMem(stageBgm, DX_PLAYTYPE_LOOP);
+        break;
+    case 2:
+        PlaySoundMem(clearBgm, DX_PLAYTYPE_BACK);
+        break;
+    case 3:
+        PlaySoundMem(overBgm, DX_PLAYTYPE_BACK);
+        break;
     }
 }

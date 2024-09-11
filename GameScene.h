@@ -9,7 +9,7 @@
 #include "AnimationManager.h"
 #include <list>
 #include "Collision.h"
-
+#include "FadeOut.h"
 
 // ゲームシーンを管理するクラス
 class GameScene {
@@ -23,12 +23,18 @@ public:
     // シーンの描画処理
     void Draw();
 
-    void Delete();
+    // シーン遷移時のフェードアウトを開始
+    void StartFadeOut(int targetScene);
 
+    // 衝突処理
     void Collision();
+
+    // 削除処理
+    void Delete();
 
 private:
     int scene;
+    int nextScene;
     Treasure* treasure;
     Player* player = nullptr;
     std::list<Enemy*> enemylist;
@@ -46,6 +52,10 @@ private:
     int treasureImage;
 
     AnimationManager animation;
+
+    FadeOut fadeOut;      
+    bool isFadingOut;
+    void PlaySceneBGM(int currentScene);
 };
 
 #endif // GAME_SCENE_H
