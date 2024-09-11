@@ -33,5 +33,7 @@ public:
 
 	static bool PointToSquare(float px, float py, float mx1, float my1, float mx2, float my2);
 
+	static bool LineToSquare(float squareX1, float squareY1, float squareX2, float squareY2, float squareX3, float squareY3, float squareX4, float squareY4, float lineSX, float lineSY, float lineEX, float lineEY);
+
 };
 
