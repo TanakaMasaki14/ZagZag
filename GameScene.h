@@ -50,6 +50,7 @@ private:
     //int actionBgm;
     //‰æ‘œ
     int titleImage;
+    int stageImage;
     int clearImage;
     int overImage;
     int treasureImage;

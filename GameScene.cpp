@@ -24,6 +24,7 @@ GameScene::GameScene() {
     overBgm = LoadSoundMem("Sound/over.mp3");
     // ‰æ‘œƒ[ƒh
     titleImage = LoadGraph("Resource/title.png");
+    stageImage = LoadGraph("Resource/stage.png");
     clearImage = LoadGraph("Resource/clear.png");
     overImage = LoadGraph("Resource/over.png");
     treasureImage = LoadGraph("Resource/treasure.png");
@@ -102,8 +103,9 @@ void GameScene::Draw() {
         break;
 
     case 1:
-        treasure->Draw();
+        DrawGraph(0, 0, stageImage, TRUE);
         player->Draw();
+        treasure->Draw();
         for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
             (*enemyitr)->Draw();
         }
