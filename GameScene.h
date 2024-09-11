@@ -21,6 +21,10 @@ public:
 
 	void Collision();
 
+	void PlayerSoilCollision();
+
+	void DigSoilCollision();
+
 private:
 	Player* player = nullptr;
 

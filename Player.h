@@ -14,7 +14,58 @@ public:
 
 	void Dig();
 
+	void HitSoil();
+
+	//当たり判定のセット
+	void SetFailHitLeft() {
+		hitLeft = false;
+	}
+	void SetTrueHitLeft() {
+		hitLeft = true;
+	}
+	void SetFailHitRight() {
+		hitRight = false;
+	}
+	void SetTrueHitRight() {
+		hitRight = true;
+	}
+	void SetFailHitUp() {
+		hitUp = false;
+	}
+	void SetTrueHitUp() {
+		hitUp = true;
+	}
+	void SetFailHitDown() {
+		hitDown = false;
+	}
+	void SetTrueHitDown() {
+		hitDown = true;
+	}
+
+
+
+
+
 	///座標取得
+	//プレイヤー
+	//左
+	float GetPlayerLeftX() {
+		return x - sizeX;
+	}
+	//右
+	float GetPlayerRightX() {
+		return x + sizeX;
+	}
+	//上
+	float GetPlayerUpY() {
+		return y - sizeY;
+	}
+	//下
+	float GetPlayerDownY() {
+		return y + sizeY;
+	}
+
+	//掘るエリア
 	//x左
 	float GetDigPointLeftX() {
 		return digpointX - digSizeX;
@@ -35,13 +86,31 @@ private:
 	float x = 0;
 	float y = 0;
 
+	float sx = 0;
+	float sy = 0;
+
 	float sizeX = 0;
 	float sizeY = 0;
 
-	float movespeedX = 0;
-	float movespeedY = 0;
+	bool hitLeft = false;
+	bool hitRight = false;
+	bool hitUp = false;
+	bool hitDown = false;
 
-	int texture;
+	bool moveLeft = false;
+	bool moveRight = false;
+	bool moveUp = false;
+	bool moveDown = false;
+
+	int righttexture;
+	int lefttexture;
+	int uptexture;
+	int downtexture;
+	int lefttexturepickaxe[6];
+	int righttexturepickaxe[6];
+	int uptexturepickaxe[6];
+	int downtexturepickaxe[6];
+
 
 	int viewpoint = 0; //0:右 1:下 2:左 3:上
 
@@ -50,10 +119,10 @@ private:
 	float digpointX = 0;
 	float digpointY = 0;
 
-	float digSizeX = 0;
-	float digSizeY = 0;
+	float digSizeX = 0; //これの2倍が横の大きさ
+	float digSizeY = 0; //これの2倍が縦の大きさ
 
-	int digtime = 10;
+	int digtime = 0;
 
 	bool attack = false;
 

@@ -7,7 +7,7 @@ GameScene::GameScene()
 
 	for (int i = 0; i < 39; i++) {
 		for (int j = 0; j < 41; j++) {
-			terrainlist.push_back(new Soil(10 + j * 20, 210 + i * 20, true));
+			terrainlist.push_back(new Soil((float)10 + (float)j * 20, (float)210 + (float)i * 20, true));
 		}
 	}
 
@@ -67,6 +67,57 @@ void GameScene::Delete()
 }
 
 void GameScene::Collision()
+{
+	PlayerSoilCollision();
+	DigSoilCollision();
+}
+
+void GameScene::PlayerSoilCollision()
+{
+	for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end(); ++terrainitr) {
+		if (Collision::SquareToSquare(player->GetPlayerLeftX(), player->GetPlayerUpY(),
+			player->GetPlayerRightX(), player->GetPlayerDownY(),
+			(*terrainitr)->GetLeftX(), (*terrainitr)->GetUpY(),
+			(*terrainitr)->GetRightX(), (*terrainitr)->GetDownY())) {
+
+			if (Collision::LineToSquare((*terrainitr)->GetLeftX(), (*terrainitr)->GetUpY(), (*terrainitr)->GetLeftX(), (*terrainitr)->GetDownY(),
+				(*terrainitr)->GetRightX(), (*terrainitr)->GetUpY(), (*terrainitr)->GetRightX(), (*terrainitr)->GetDownY(),
+				player->GetPlayerLeftX(), player->GetPlayerDownY(), player->GetPlayerRightX(), player->GetPlayerDownY())) {
+				player->SetTrueHitDown();
+			}
+			if (Collision::LineToSquare((*terrainitr)->GetLeftX(), (*terrainitr)->GetUpY(), (*terrainitr)->GetLeftX(), (*terrainitr)->GetDownY(),
+				(*terrainitr)->GetRightX(), (*terrainitr)->GetUpY(), (*terrainitr)->GetRightX(), (*terrainitr)->GetDownY(),
+				player->GetPlayerLeftX(), player->GetPlayerDownY(), player->GetPlayerLeftX(), player->GetPlayerUpY())) {
+				player->SetTrueHitLeft();
+			}
+			if (Collision::LineToSquare((*terrainitr)->GetLeftX(), (*terrainitr)->GetUpY(), (*terrainitr)->GetLeftX(), (*terrainitr)->GetDownY(),
+				(*terrainitr)->GetRightX(), (*terrainitr)->GetUpY(), (*terrainitr)->GetRightX(), (*terrainitr)->GetDownY(),
+				player->GetPlayerRightX(), player->GetPlayerDownY(), player->GetPlayerRightX(), player->GetPlayerUpY())) {
+				player->SetTrueHitRight();
+			}
+			if (Collision::LineToSquare((*terrainitr)->GetLeftX(), (*terrainitr)->GetUpY(), (*terrainitr)->GetLeftX(), (*terrainitr)->GetDownY(),
+				(*terrainitr)->GetRightX(), (*terrainitr)->GetUpY(), (*terrainitr)->GetRightX(), (*terrainitr)->GetDownY(),
+				player->GetPlayerRightX(), player->GetPlayerUpY(), player->GetPlayerLeftX(), player->GetPlayerUpY())) {
+				player->SetTrueHitUp();
+			}
+
+
+			break;
+		}
+		if (Collision::SquareToSquare(player->GetPlayerLeftX(), player->GetPlayerUpY(),
+			player->GetPlayerRightX(), player->GetPlayerDownY(),
+			(*terrainitr)->GetLeftX(), (*terrainitr)->GetUpY(),
+			(*terrainitr)->GetRightX(), (*terrainitr)->GetDownY()) == false) {
+
+			player->SetFailHitLeft();
+			player->SetFailHitRight();
+			player->SetFailHitUp();
+			player->SetFailHitDown();
+		}
+	}
+}
+
+void GameScene::DigSoilCollision()
 {
 	for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end(); ++terrainitr) {
 		if (Collision::SquareToSquare(player->GetDigPointLeftX(), player->GetDigPointUpY(),

@@ -14,7 +14,7 @@ Soil::Soil(float x, float y, bool canDig)
 	int* sizeX = new int(0);
 	int* sizeY = new int(0);
 
-	digtexture = LoadGraph("Resources/testsoil.png");
+	digtexture = LoadGraph("Resources/soil.png");
 	nodigtexture = LoadGraph("Resources/testsoil.png");
 
 	GetGraphSize(digtexture, sizeX, sizeY);
