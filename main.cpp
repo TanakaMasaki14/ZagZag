@@ -1,7 +1,7 @@
 #include "DxLib.h"
 #include "GameScene.h"
 
-const char TITLE[] = "4047_ZagZag";
+const char TITLE[] = "4047_ザグザグ";
 const int WIN_WIDTH = 800;
 const int WIN_HEIGHT = 980;
 
