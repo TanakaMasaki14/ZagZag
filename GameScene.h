@@ -1,5 +1,4 @@
-#ifndef GAME_SCENE_H
-#define GAME_SCENE_H
+#pragma once
 #include "Player.h"
 #include "Enemy.h"
 #include "Enemy1.h"
@@ -29,6 +28,10 @@ public:
     // Õ“Ëˆ—
     void Collision();
 
+    void PlayerSoilCollision();
+
+    void DigSoilCollision();
+
     // íœˆ—
     void Delete();
 
@@ -57,5 +60,3 @@ private:
     bool isFadingOut;
     void PlaySceneBGM(int currentScene);
 };
-
-#endif // GAME_SCENE_H
