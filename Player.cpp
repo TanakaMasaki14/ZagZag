@@ -255,43 +255,51 @@ void Player::Move()
 	if (dig == false && attack == false) {
 		//ã
 		if (key[KEY_INPUT_W] == 1) {
-			if (hitUp == false) {
-				y -= 4.0f;
-				viewpoint = 3;
+			if (y >= 15) {
+				if (hitUp == false) {
+					y -= 4.0f;
+					viewpoint = 3;
+				}
+				moveUp = true;
 			}
-			moveUp = true;
 		}
 		else {
 			moveUp = false;
 		}
 		//‰º
 		if (key[KEY_INPUT_S] == 1) {
-			if (hitDown == false) {
-				y += 4.0f;
-				viewpoint = 1;
+			if (y <= 965) {
+				if (hitDown == false) {
+					y += 4.0f;
+					viewpoint = 1;
+				}
+				moveDown = true;
 			}
-			moveDown = true;
 		}
 		else {
 			moveDown = false;
 		}
 		//¶
 		if (key[KEY_INPUT_A] == 1) {
-			if (hitLeft == false) {
-				x -= 4.0f;
-				viewpoint = 2;
+			if (x >= 15) {
+				if (hitLeft == false) {
+					x -= 4.0f;
+					viewpoint = 2;
+				}
+				moveLeft = true;
 			}
-			moveLeft = true;
 		}
 		else {
 			moveLeft = false;
 		}
 		//‰E
 		if (key[KEY_INPUT_D] == 1) {
-			if (hitRight == false) {
-				x += 4.0f;
-				viewpoint = 0;
-				moveRight = true;
+			if (x <= 785) {
+				if (hitRight == false) {
+					x += 4.0f;
+					viewpoint = 0;
+					moveRight = true;
+				}
 			}
 		}
 		else {
