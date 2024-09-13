@@ -90,7 +90,7 @@ void AnimationManager::draw()
 	{
 		if (image.imageHandle != -1)
 		{
-			DrawGraph(static_cast<int>(image.posX), static_cast<int>(image.posY - 90), image.imageHandle, TRUE);
+			DrawGraph(static_cast<int>(image.posX), static_cast<int>(image.posY - 100), image.imageHandle, TRUE);
 		}
 	}
 }

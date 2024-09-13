@@ -34,6 +34,9 @@ public:
 
     void PlayerTreasureCollision();
 
+    void PlayerEnemyCollision();
+
+    void PlayerAttackEnemyCollision();
     // íœˆ—
     void Delete();
 
@@ -51,6 +54,8 @@ private:
     int overBgm;
     //‰æ‘œ
     int titleImage;
+    int ruleImage;
+    int missionImage;
     int stageImage;
     int clearImage;
     int overImage;

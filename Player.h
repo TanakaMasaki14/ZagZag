@@ -18,6 +18,23 @@ public:
 
 	void Attack();
 
+	void Hit() {
+		if (hit == false) {
+			hp--;
+			hit = true;
+		}
+	}
+
+	int GetAttackTime() {
+		return attacktime;
+	}
+
+	void HitProcess();
+
+	int GetHp() {
+		return hp;
+	}
+
 	//当たり判定のセット
 	void SetFailHitLeft() {
 		hitLeft = false;
@@ -84,6 +101,21 @@ public:
 		return digpointY + digSizeY;
 	}
 
+	//攻撃
+	float GetAttackPointLeftX() {
+		return attackPointX - attackSizeX;
+	}
+	float GetAttackPointRightX() {
+		return attackPointX + attackSizeX;
+	}
+	float GetAttackPointUpY() {
+		return attackPointY - attackSizeY;
+	}
+	float GetAttackPointDownY() {
+		return attackPointY + attackSizeY;
+	}
+
+
 private:
 	float x = 0;
 	float y = 0;
@@ -93,6 +125,10 @@ private:
 
 	float sizeX = 0;
 	float sizeY = 0;
+
+	int hp = 3;
+	bool hit = false;
+	int invincibletime = 90;
 
 	bool hitLeft = false;
 	bool hitRight = false;
@@ -112,7 +148,10 @@ private:
 	int righttexturepickaxe[10];
 	int uptexturepickaxe[10];
 	int downtexturepickaxe[10];
-
+	int lefttextureweapon[20];
+	int righttextureweapon[20];
+	int uptextureweapon[20];
+	int downtextureweapon[20];
 
 	int viewpoint = 0; //0:右 1:下 2:左 3:上
 
@@ -140,3 +179,4 @@ private:
 	char oldkey[256];
 
 };
+

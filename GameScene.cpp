@@ -24,6 +24,8 @@ GameScene::GameScene() {
     overBgm = LoadSoundMem("Sound/over.mp3");
     // 画像ロード
     titleImage = LoadGraph("Resource/title.png");
+    ruleImage = LoadGraph("Resource/rule.png");
+    missionImage = LoadGraph("Resource/mission.png");
     stageImage = LoadGraph("Resource/stage.png");
     clearImage = LoadGraph("Resource/clear.png");
     overImage = LoadGraph("Resource/over.png");
@@ -58,8 +60,22 @@ void GameScene::Update(char* keys, char* oldkeys) {
         }
         break;
 
-        // ステージ1 (Scene 1)
+        // ルール (Scene 1)
     case 1:
+        if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
+            StartFadeOut(2);
+        }
+        break;
+
+        // ミッション (Scene 2)
+    case 2:
+        if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
+            StartFadeOut(3);
+        }
+        break;
+
+        // ステージ (Scene 3)
+    case 3:
         player->Update();
 
         for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
@@ -69,23 +85,19 @@ void GameScene::Update(char* keys, char* oldkeys) {
             (*terrainitr)->Update();
         }
 
-        if (keys[KEY_INPUT_C] == 1 && oldkeys[KEY_INPUT_C] == 0) {
-            StartFadeOut(2);
-        }
-
         Collision();
         Delete();
         break;
 
-        // クリア (Scene 2)
-    case 2:
+        // クリア (Scene 4)
+    case 4:
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
-            StartFadeOut(3);
+            StartFadeOut(5);
         }
         break;
 
-        // オーバー (Scene 3)
-    case 3:
+        // オーバー (Scene 5)
+    case 5:
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
             StartFadeOut(0);
         }
@@ -102,6 +114,14 @@ void GameScene::Draw() {
         break;
 
     case 1:
+        DrawGraph(0, 0, ruleImage, TRUE);
+        break;
+
+    case 2:
+        DrawGraph(0, 0, missionImage, TRUE);
+        break;
+
+    case 3:
         DrawGraph(0, 0, stageImage, TRUE);
         player->Draw();
         treasure->Draw();
@@ -113,11 +133,11 @@ void GameScene::Draw() {
         }
         break;
 
-    case 2:
+    case 4:
         DrawGraph(0, 0, clearImage, TRUE);
         break;
 
-    case 3:
+    case 5:
         DrawGraph(0, 0, overImage, TRUE);
         break;
     }
@@ -139,6 +159,15 @@ void GameScene::Delete()
             ++terrainitr;
         }
     }
+
+    for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end();) {
+        if ((*enemyitr)->GetIsHit() == true) {
+            enemyitr = enemylist.erase(enemyitr);
+        }
+        else {
+            ++enemyitr;
+        }
+    }
 }
 
 void GameScene::Collision()
@@ -146,6 +175,8 @@ void GameScene::Collision()
     PlayerSoilCollision();
     DigSoilCollision();
     PlayerTreasureCollision();
+    PlayerEnemyCollision();
+    PlayerAttackEnemyCollision();
 }
 
 void GameScene::PlayerSoilCollision()
@@ -212,7 +243,29 @@ void GameScene::PlayerTreasureCollision()
         player->GetPlayerRightX(), player->GetPlayerDownY(),
         treasure->GetX(), treasure->GetY(),
         treasure->GetX(), treasure->GetY())) {
-        StartFadeOut(2);
+        StartFadeOut(4);
+    }
+}
+
+void GameScene::PlayerEnemyCollision()
+{
+    for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
+        if (Collision::SquareToSquare(player->GetPlayerLeftX(), player->GetPlayerUpY(), player->GetPlayerRightX(), player->GetPlayerDownY(),
+            (*enemyitr)->GetLeftX(), (*enemyitr)->GetUpY(), (*enemyitr)->GetRightX(), (*enemyitr)->GetDownY())) {
+            player->Hit();
+        }
+    }
+}
+
+void GameScene::PlayerAttackEnemyCollision()
+{
+    for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
+        if (Collision::SquareToSquare(player->GetAttackPointLeftX(), player->GetAttackPointUpY(), player->GetAttackPointRightX(), player->GetAttackPointDownY(),
+            (*enemyitr)->GetLeftX(), (*enemyitr)->GetUpY(), (*enemyitr)->GetRightX(), (*enemyitr)->GetDownY())) {
+            if (player->GetAttackTime() >= 8 && player->GetAttackTime() <= 19) {
+                (*enemyitr)->Hit();
+            }
+        }
     }
 }
 
@@ -233,13 +286,13 @@ void GameScene::PlaySceneBGM(int currentScene) {
     case 0:
         PlaySoundMem(titleBgm, DX_PLAYTYPE_LOOP);
         break;
-    case 1:
+    case 3:
         PlaySoundMem(stageBgm, DX_PLAYTYPE_LOOP);
         break;
-    case 2:
+    case 4:
         PlaySoundMem(clearBgm, DX_PLAYTYPE_BACK);
         break;
-    case 3:
+    case 5:
         PlaySoundMem(overBgm, DX_PLAYTYPE_BACK);
         break;
     }
