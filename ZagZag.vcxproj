@@ -138,7 +138,6 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Enemy1.cpp" />
     <ClCompile Include="FadeOut.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -153,7 +152,6 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Enemy1.h" />
     <ClInclude Include="FadeOut.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Player.h" />

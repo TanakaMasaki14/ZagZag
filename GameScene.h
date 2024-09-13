@@ -1,7 +1,6 @@
 #pragma once
 #include "Player.h"
 #include "Enemy.h"
-#include "Enemy1.h"
 #include "Treasure.h"
 #include "Terrain.h"
 #include "Soil.h"
@@ -47,6 +46,8 @@ private:
     Player* player = nullptr;
     std::list<Enemy*> enemylist;
     std::list<Terrain*> terrainlist;
+    
+
     //‰¹Šy
     int titleBgm;
     int stageBgm;

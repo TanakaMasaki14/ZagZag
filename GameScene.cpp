@@ -17,6 +17,10 @@ GameScene::GameScene() {
             terrainlist.push_back(new Soil((float)10 + (float)j * 20, (float)210 + (float)i * 20, true));
         }
     }
+    enemylist.push_back(new Enemy(200, 200, 2, 1));
+    enemylist.push_back(new Enemy(300, 300, 3, 0));
+    enemylist.push_back(new Enemy(400, 400, 2, 1));
+
     // 音楽のロード
     titleBgm = LoadSoundMem("Sound/title.mp3");
     stageBgm = LoadSoundMem("Sound/stage.mp3");
@@ -77,12 +81,11 @@ void GameScene::Update(char* keys, char* oldkeys) {
         // ステージ (Scene 3)
     case 3:
         player->Update();
-
-        for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
-            (*enemyitr)->Update();
-        }
         for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end(); ++terrainitr) {
             (*terrainitr)->Update();
+        }
+        for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
+            (*enemyitr)->Update(player);
         }
 
         Collision();
@@ -92,7 +95,7 @@ void GameScene::Update(char* keys, char* oldkeys) {
         // クリア (Scene 4)
     case 4:
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
-            StartFadeOut(5);
+            StartFadeOut(0);
         }
         break;
 
@@ -125,12 +128,13 @@ void GameScene::Draw() {
         DrawGraph(0, 0, stageImage, TRUE);
         player->Draw();
         treasure->Draw();
-        for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
-            (*enemyitr)->Draw();
-        }
         for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end(); ++terrainitr) {
             (*terrainitr)->Draw();
         }
+        for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
+            (*enemyitr)->Draw();
+        }
+
         break;
 
     case 4:

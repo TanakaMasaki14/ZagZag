@@ -67,6 +67,9 @@ public:
 
 	///座標取得
 	//プレイヤー
+	int GetX() const;  // プレイヤーのX座標を返す
+	int GetY() const;  // プレイヤーのY座標を返す
+
 	//左
 	float GetPlayerLeftX() {
 		return x - sizeX;
@@ -178,5 +181,6 @@ private:
 	char key[256];
 	char oldkey[256];
 
+	
 };
 

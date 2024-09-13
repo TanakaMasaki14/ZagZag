@@ -427,3 +427,11 @@ void Player::HitProcess()
 		}
 	}
 }
+
+int Player::GetX() const {
+	return x;
+}
+
+int Player::GetY() const {
+	return y;
+}
