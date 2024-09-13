@@ -32,6 +32,8 @@ public:
 
     void DigSoilCollision();
 
+    void PlayerTreasureCollision();
+
     // íœˆ—
     void Delete();
 

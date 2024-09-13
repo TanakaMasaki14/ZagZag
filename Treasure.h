@@ -1,5 +1,4 @@
-#ifndef TREASURE_H
-#define TREASURE_H
+#pragma once
 
 class Treasure {
 private:
@@ -23,5 +22,3 @@ public:
     // •ó” ‚ÌyÀ•W‚ğæ“¾
     int GetY() const;
 };
-
-#endif // TREASURE_H

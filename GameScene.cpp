@@ -96,7 +96,6 @@ void GameScene::Update(char* keys, char* oldkeys) {
 // シーンの描画処理
 void GameScene::Draw() {
     switch (scene) {
-        // タイトル (Scene 0)
     case 0:
         DrawGraph(0, 0, titleImage, TRUE);
         animation.draw();
@@ -146,6 +145,7 @@ void GameScene::Collision()
 {
     PlayerSoilCollision();
     DigSoilCollision();
+    PlayerTreasureCollision();
 }
 
 void GameScene::PlayerSoilCollision()
@@ -203,6 +203,16 @@ void GameScene::DigSoilCollision()
             //掘られる
             (*terrainitr)->Diged();
         }
+    }
+}
+
+void GameScene::PlayerTreasureCollision()
+{
+    if (Collision::SquareToSquare(player->GetPlayerLeftX(), player->GetPlayerUpY(),
+        player->GetPlayerRightX(), player->GetPlayerDownY(),
+        treasure->GetX(), treasure->GetY(),
+        treasure->GetX() + 32, treasure->GetY() + 32)) {
+        StartFadeOut(2);
     }
 }
 
