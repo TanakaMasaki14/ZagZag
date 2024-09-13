@@ -16,6 +16,12 @@ public:
 
 	void HitSoil();
 
+	void Reset() {
+		x = 300;
+		y = 300;
+		hp = 3;
+	}
+
 	void Attack();
 
 	void Hit() {

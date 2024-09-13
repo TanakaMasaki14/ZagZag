@@ -182,6 +182,7 @@ void Player::Update()
 	Dig();
 	Attack();
 	HitSoil();
+	HitProcess();
 
 	for (int i = 0; i < 256; i++) {
 		oldkey[i] = key[i];
@@ -202,6 +203,9 @@ void Player::Draw()
 	DrawFormatString(0, 140, GetColor(255, 255, 255), "D%d", moveDown);
 	DrawFormatString(0, 160, GetColor(255, 255, 255), "P%f", this->y);
 	DrawFormatString(0, 180, GetColor(255, 255, 255), "A%d", viewpoint);*/
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", hp);
+	DrawFormatString(0, 20, GetColor(255, 255, 255), "%d", hit);
+
 
 	if (viewpoint == 0) {
 		DrawGraph((int)x - (int)sizeX, (int)y - (int)sizeY, righttexture, true);

@@ -3,7 +3,7 @@
 GameScene::GameScene()
 {
 	player = new Player(300, 100);
-	//enemylist.push_back(new Enemy1(500, 100));
+	enemylist.push_back(new Enemy1(500, 100));
 
 	for (int i = 0; i < 39; i++) {
 		for (int j = 0; j < 41; j++) {
