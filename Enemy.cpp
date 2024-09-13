@@ -1,9 +1,32 @@
 #include "Enemy.h"
 #include <cmath>
+#include <iostream>
 
 Enemy::Enemy(int startX, int startY, int speed, int patern) :x(startX), y(startY), speed(speed), chaseTimer(0), stopTimer(0),
 chaseDuration(300), stopDuration(200), isChasing(true), angle(0.0f), circleRadius(100.0f), isPatern(patern) {
     enemyImage = LoadGraph("Resource/Enemy.png");
+
+    int* sizeX = new int(0);
+    int* sizeY = new int(0);
+
+    GetGraphSize(enemyImage, sizeX, sizeY);
+
+    if (sizeX != nullptr) {
+        this->sizeX = static_cast<float>(*sizeX);
+    }
+    else {
+        // エラーハンドリングコードをここに追加
+        std::cerr << "Error: sizeX is a NULL pointer." << std::endl;
+    }
+    if (sizeY != nullptr) {
+        this->sizeY = static_cast<float>(*sizeY);
+    }
+    else {
+        // エラーハンドリングコードをここに追加
+        std::cerr << "Error: sizeY is a NULL pointer." << std::endl;
+    }
+    this->sizeX = this->sizeX / 2;
+    this->sizeY = this->sizeY / 2;
 }
 
 void Enemy::Update(const Player* player) {
@@ -96,7 +119,5 @@ void Enemy::ChasePlayer(int playerX, int playerY) {
 
 void Enemy::Draw() {
     // 敵の描画処理
-    DrawGraph(x, y, enemyImage, true);
-    // デバッグ情報を画面に表示
-    DrawFormatString(10, 50, GetColor(255, 255, 255), "Enemy Position: (%d, %d)", x, y);
+    DrawGraph((int)x - (int)sizeX, (int)y - (int)sizeY, enemyImage, true);
 }

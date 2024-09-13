@@ -35,6 +35,17 @@ public:
 		return hp;
 	}
 
+	void Reset() {
+		x = 300;
+		y = 100;
+		hp = 3;
+		viewpoint = 0;
+		dig = false;
+		attack = false;
+		digtime = 0;
+		attacktime = 0;
+	}
+
 	//“–‚½‚è”»’è‚ÌƒZƒbƒg
 	void SetFailHitLeft() {
 		hitLeft = false;

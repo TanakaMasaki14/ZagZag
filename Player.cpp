@@ -182,6 +182,7 @@ void Player::Update()
 	Dig();
 	Attack();
 	HitSoil();
+	HitProcess();
 
 	for (int i = 0; i < 256; i++) {
 		oldkey[i] = key[i];

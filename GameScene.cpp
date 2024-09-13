@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "AnimationManager.h"
 #include "Treasure.h"
+#include <ctime>
 
 // フェードアウト用のクラスインスタンス追加
 FadeOut fadeOut;
@@ -17,9 +18,9 @@ GameScene::GameScene() {
             terrainlist.push_back(new Soil((float)10 + (float)j * 20, (float)210 + (float)i * 20, true));
         }
     }
-    enemylist.push_back(new Enemy(200, 200, 2, 1));
-    enemylist.push_back(new Enemy(300, 300, 3, 0));
-    enemylist.push_back(new Enemy(400, 400, 2, 1));
+    enemylist.push_back(new Enemy(200, 600, 2, 1));
+    enemylist.push_back(new Enemy(600, 600, 3, 0));
+    enemylist.push_back(new Enemy(400, 800, 2, 1));
 
     // 音楽のロード
     titleBgm = LoadSoundMem("Sound/title.mp3");
@@ -30,6 +31,9 @@ GameScene::GameScene() {
     titleImage = LoadGraph("Resource/title.png");
     ruleImage = LoadGraph("Resource/rule.png");
     missionImage = LoadGraph("Resource/mission.png");
+    hpImage = LoadGraph("Resource/hp.png");
+    hp1Image = LoadGraph("Resource/hp1.png");
+    hp2Image = LoadGraph("Resource/hp2.png");
     stageImage = LoadGraph("Resource/stage.png");
     clearImage = LoadGraph("Resource/clear.png");
     overImage = LoadGraph("Resource/over.png");
@@ -81,13 +85,21 @@ void GameScene::Update(char* keys, char* oldkeys) {
         // ステージ (Scene 3)
     case 3:
         player->Update();
+        timer--;
+        if (timer == 0)
+        {
+            spawn();
+            timer = 60 * 3;
+        }
         for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end(); ++terrainitr) {
             (*terrainitr)->Update();
         }
         for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
             (*enemyitr)->Update(player);
         }
-
+        if (player->GetHp() == 0) {
+            StartFadeOut(5);
+        }
         Collision();
         Delete();
         break;
@@ -96,6 +108,17 @@ void GameScene::Update(char* keys, char* oldkeys) {
     case 4:
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
             StartFadeOut(0);
+            player->Reset();
+            terrainlist.clear();
+            enemylist.clear();
+            for (int i = 0; i < 39; i++) {
+                for (int j = 0; j < 41; j++) {
+                    terrainlist.push_back(new Soil((float)10 + (float)j * 20, (float)210 + (float)i * 20, true));
+                }
+            }
+            enemylist.push_back(new Enemy(200, 600, 2, 1));
+            enemylist.push_back(new Enemy(600, 600, 3, 0));
+            enemylist.push_back(new Enemy(400, 800, 2, 1));
         }
         break;
 
@@ -103,6 +126,17 @@ void GameScene::Update(char* keys, char* oldkeys) {
     case 5:
         if (keys[KEY_INPUT_SPACE] == 1 && oldkeys[KEY_INPUT_SPACE] == 0) {
             StartFadeOut(0);
+            player->Reset();
+            terrainlist.clear();
+            enemylist.clear();
+            for (int i = 0; i < 39; i++) {
+                for (int j = 0; j < 41; j++) {
+                    terrainlist.push_back(new Soil((float)10 + (float)j * 20, (float)210 + (float)i * 20, true));
+                }
+            }
+            enemylist.push_back(new Enemy(200, 600, 2, 1));
+            enemylist.push_back(new Enemy(600, 600, 3, 0));
+            enemylist.push_back(new Enemy(400, 800, 2, 1));
         }
         break;
     }
@@ -126,6 +160,7 @@ void GameScene::Draw() {
 
     case 3:
         DrawGraph(0, 0, stageImage, TRUE);
+
         player->Draw();
         treasure->Draw();
         for (auto terrainitr = terrainlist.begin(); terrainitr != terrainlist.end(); ++terrainitr) {
@@ -135,6 +170,19 @@ void GameScene::Draw() {
             (*enemyitr)->Draw();
         }
 
+        if (player->GetHp() == 3) {
+            DrawGraph(600, 5, hpImage, TRUE);
+            DrawGraph(655, 5, hp1Image, TRUE);
+            DrawGraph(710, 5, hp2Image, TRUE);
+        }
+        if (player->GetHp() == 2) {
+            DrawGraph(600, 5, hpImage, TRUE);
+            DrawGraph(655, 5, hp1Image, TRUE);
+  
+        }
+        if (player->GetHp() == 1) {
+            DrawGraph(600, 5, hpImage, TRUE);
+        }
         break;
 
     case 4:
@@ -272,6 +320,28 @@ void GameScene::PlayerAttackEnemyCollision()
         }
     }
 }
+
+void GameScene::spawn()
+{
+    std::srand(static_cast<unsigned int>(std::time(0)));
+
+    spawn_patern = std::rand() % 3 + 1;
+    int spawn_active = std::rand() % 2;
+    int spawn_speed = std::rand() % 2 + 2;
+    if (spawn_patern == 1)
+    {
+        enemylist.push_back(new Enemy(spawnX_patern1, spawnY_patern1, spawn_speed, spawn_active));
+    }
+    if (spawn_patern == 2)
+    {
+        enemylist.push_back(new Enemy(spawnX_patern2, spawnY_patern2, spawn_speed, spawn_active));
+    }
+    if (spawn_patern == 3)
+    {
+        enemylist.push_back(new Enemy(spawnX_patern3, spawnY_patern3, spawn_speed, spawn_active));
+    }
+}
+
 
 // フェードアウトを開始する
 void GameScene::StartFadeOut(int targetScene) {

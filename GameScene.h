@@ -38,6 +38,7 @@ public:
     void PlayerAttackEnemyCollision();
     // íœˆ—
     void Delete();
+    void spawn();
 
 private:
     int scene;
@@ -57,10 +58,26 @@ private:
     int titleImage;
     int ruleImage;
     int missionImage;
+    int hpImage;
+    int hp1Image;
+    int hp2Image;
     int stageImage;
     int clearImage;
     int overImage;
     int treasureImage;
+
+    int timer = 60 * 3;
+
+    int const spawnX_patern1 = -10;
+    int const spawnY_patern1 = 400;
+
+    int const spawnX_patern2 = -10;
+    int const spawnY_patern2 = 900;
+
+    int const spawnX_patern3 = 810;
+    int const spawnY_patern3 = 400;
+
+    int spawn_patern = 0;
 
     AnimationManager animation;
 

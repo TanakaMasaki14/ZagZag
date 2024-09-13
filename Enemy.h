@@ -7,6 +7,7 @@ public:
     Enemy(int startX, int startY, int speed, int patern);  // コンストラクタ
     void Update(const Player* player);  // 更新処理（追尾）
     void Draw();  // 描画処理
+	void spawn();
 
 	float GetLeftX() {
 		return x - sizeX;
@@ -45,7 +46,7 @@ private:
     float angle;
     float circleRadius;
     int isPatern;
-
+	
 	float sizeX = 0;
 	float sizeY = 0;
 
