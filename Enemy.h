@@ -25,11 +25,22 @@ public:
 		return y + sizeY;
 	}
 
+	void Hit() {
+		hit = true;
+	}
+
+	bool GetIsHit() {
+		return hit;
+	}
+
+
 protected:
 	float x = 0;
 	float y = 0;
 
 	float sizeX = 0;
 	float sizeY = 0;
+
+	bool hit = false;
 };
 

@@ -64,6 +64,15 @@ void GameScene::Delete()
 			++terrainitr;
 		}
 	}
+
+	for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end();) {
+		if ((*enemyitr)->GetIsHit() == true) {
+			enemyitr = enemylist.erase(enemyitr);
+		}
+		else {
+			++enemyitr;
+		}
+	}
 }
 
 void GameScene::Collision()
@@ -134,10 +143,22 @@ void GameScene::DigSoilCollision()
 
 void GameScene::PlayerEnemyCollision()
 {
-
+	for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
+		if (Collision::SquareToSquare(player->GetPlayerLeftX(), player->GetPlayerUpY(), player->GetPlayerRightX(), player->GetPlayerDownY(),
+			(*enemyitr)->GetLeftX(), (*enemyitr)->GetUpY(), (*enemyitr)->GetRightX(), (*enemyitr)->GetDownY())) {
+			player->Hit();
+		}
+	}
 }
 
 void GameScene::PlayerAttackEnemyCollision()
 {
-
+	for (auto enemyitr = enemylist.begin(); enemyitr != enemylist.end(); ++enemyitr) {
+		if (Collision::SquareToSquare(player->GetAttackPointLeftX(), player->GetAttackPointUpY(), player->GetAttackPointRightX(), player->GetAttackPointDownY(),
+			(*enemyitr)->GetLeftX(), (*enemyitr)->GetUpY(), (*enemyitr)->GetRightX(), (*enemyitr)->GetDownY())) {
+			if (player->GetAttackTime() >= 8 && player->GetAttackTime() <= 19) {
+				(*enemyitr)->Hit();
+			}
+		}
+	}
 }
