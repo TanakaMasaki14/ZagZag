@@ -31,6 +31,10 @@ public:
 
 	void HitProcess();
 
+	int GetHp() {
+		return hp;
+	}
+
 	//“–‚½‚è”»’è‚ÌƒZƒbƒg
 	void SetFailHitLeft() {
 		hitLeft = false;
