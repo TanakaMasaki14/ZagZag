@@ -211,7 +211,7 @@ void GameScene::PlayerTreasureCollision()
     if (Collision::SquareToSquare(player->GetPlayerLeftX(), player->GetPlayerUpY(),
         player->GetPlayerRightX(), player->GetPlayerDownY(),
         treasure->GetX(), treasure->GetY(),
-        treasure->GetX() + 32, treasure->GetY() + 32)) {
+        treasure->GetX(), treasure->GetY())) {
         StartFadeOut(2);
     }
 }

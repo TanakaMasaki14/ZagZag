@@ -1,10 +1,12 @@
-#ifndef FADEOUT_H
-#define FADEOUT_H
+#pragma once
 
 class FadeOut {
 private:
     int alpha;  // アルファ値（透明度）
     int speed;  // フェードの速度
+    int radius;
+    int increasing;  // フェードインから開始するようにリセット
+    int flashCount;
 
 public:
     // コンストラクタ
@@ -19,5 +21,3 @@ public:
     // フェードアウトのリセット
     void Reset();
 };
-
-#endif // FADEOUT_H
