@@ -20,6 +20,11 @@ public:
 		x = 300;
 		y = 300;
 		hp = 3;
+		dig = false;
+		attack = false;
+		digtime = 0;
+		attacktime = 0;
+
 	}
 
 	void Attack();
