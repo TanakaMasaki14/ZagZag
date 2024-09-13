@@ -192,7 +192,7 @@ void Player::Update()
 
 void Player::Draw()
 {
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "L%d", hitLeft);
+	/*DrawFormatString(0, 0, GetColor(255, 255, 255), "L%d", hitLeft);
 	DrawFormatString(0, 20, GetColor(255, 255, 255), "R%d", hitRight);
 	DrawFormatString(0, 40, GetColor(255, 255, 255), "U%d", hitUp);
 	DrawFormatString(0, 60, GetColor(255, 255, 255), "D%d", hitDown);
@@ -201,7 +201,7 @@ void Player::Draw()
 	DrawFormatString(0, 120, GetColor(255, 255, 255), "U%d", moveUp);
 	DrawFormatString(0, 140, GetColor(255, 255, 255), "D%d", moveDown);
 	DrawFormatString(0, 160, GetColor(255, 255, 255), "P%f", this->y);
-	DrawFormatString(0, 180, GetColor(255, 255, 255), "A%d", viewpoint);
+	DrawFormatString(0, 180, GetColor(255, 255, 255), "A%d", viewpoint);*/
 
 	if (viewpoint == 0) {
 		DrawGraph((int)x - (int)sizeX, (int)y - (int)sizeY, righttexture, true);
